@@ -8,14 +8,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt } = req.body;
+    const { messages } = req.body;
+    console.log(messages);
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: [{ role: "system", content: prompt }],
+      messages,
     });
 
-    console.log("res", response.choices[0].message);
+    console.log("res", response);
     return res.json({ text: response.choices[0].message.content });
   } catch (error) {
     console.error("Error generating text:", error.message);

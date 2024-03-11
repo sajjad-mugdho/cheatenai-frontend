@@ -2,17 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import sal from "sal.js";
 import Image from "next/image";
-
+import { useSession } from "next-auth/react";
 import TextGeneratorData from "../../data/dashboard.json";
 import Reaction from "../Common/Reaction";
-import { useRouter } from "next/router";
-import axios from "axios";
+import { useAppContext } from "@/context/Context";
 
 const TextGenerator = () => {
-  const router = useRouter();
-
-  const [messages, setMessages] = useState([]);
-
   useEffect(() => {
     sal();
 
@@ -29,31 +24,14 @@ const TextGenerator = () => {
     });
   }, []);
 
-  const onSubmit = async (values) => {
-    try {
-      const userMessage = {
-        role: "user",
-        content: values.prompt,
-      };
-      const newMessages = [...messages, userMessage];
-
-      const response = await axios.post("/api/text-generator", {
-        messages: newMessages,
-      });
-      setMessages((current) => [...current, userMessage, response.data]);
-    } catch (error) {
-      if (error?.response?.status === 403) {
-      } else {
-      }
-    } finally {
-      router.refresh();
-    }
-  };
+  const { messages } = useAppContext();
+  const { data: session } = useSession();
+  console.log(session?.user.email, messages);
 
   return (
     <>
-      {/* {TextGeneratorData &&
-        TextGeneratorData.textGenerator.map((data, index) => (
+      {messages &&
+        messages.map((data, index) => (
           <div
             className="chat-box-list pt--30"
             id="chatContainer"
@@ -70,19 +48,19 @@ const TextGenerator = () => {
                       className="w-100"
                       width={40}
                       height={40}
-                      src={data.author}
+                      src={session?.user?.image}
                       alt="Author"
                     />
                   </div>
                   <div className="chat-content">
-                    <h6 className="title">{data.title}</h6>
-                    <p>{data.desc}</p>
+                    <h6 className="title">{session?.user.name}</h6>
+                    {/* <p>{data}</p> */}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="chat-box ai-speech bg-flashlight">
+            {/* <div className="chat-box ai-speech bg-flashlight">
               {data.content.map((innerData, innerIndex) => (
                 <div
                   className="inner top-flashlight leftside light-xl"
@@ -131,9 +109,9 @@ const TextGenerator = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
-        ))} */}
+        ))}
     </>
   );
 };

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import avatar from "../../public/images/team/team-01.jpg";
 
 import UserMenuItems from "../Header/HeaderProps/UserMenuItems";
+import { useSession } from "next-auth/react";
 
 import HeaderData from "../../data/header.json";
 import { useAppContext } from "@/context/Context";
@@ -15,6 +16,7 @@ const LeftpanelDashboard = () => {
 
   const isActive = (href) => router.pathname === href;
 
+  const { data: session } = useSession();
   return (
     <>
       <div
@@ -139,15 +141,15 @@ const LeftpanelDashboard = () => {
                 <div className="author-img active">
                   <Image
                     className="w-100"
-                    width={40}
-                    height={40}
-                    src={avatar}
+                    width={30}
+                    height={30}
+                    src={session?.user.image}
                     alt="Author"
                   />
                 </div>
                 <div className="author-desc">
-                  <h6>Rafi Dev</h6>
-                  <p>trentadam@net</p>
+                  <h6>{session?.user.name}</h6>
+                  <p>{session?.user.email}</p>
                 </div>
                 <div className="author-badge">Free</div>
               </Link>

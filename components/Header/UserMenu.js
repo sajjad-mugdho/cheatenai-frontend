@@ -1,16 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
-import avatar from "../../public/images/team/team-01.jpg";
+
 import UserMenuItems from "./HeaderProps/UserMenuItems";
 
 const UserMenu = () => {
+  const { data: session } = useSession();
   return (
     <>
       <div className="inner">
         <div className="rbt-admin-profile">
           <div className="admin-thumbnail">
-            <Image src={avatar} alt="User Images" />
+            <Image
+              src={session?.user?.image}
+              alt="User Images"
+              width={20}
+              height={20}
+            />
           </div>
           <div className="admin-info">
             <span className="name">Rafi Dev</span>

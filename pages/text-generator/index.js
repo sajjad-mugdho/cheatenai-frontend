@@ -16,23 +16,7 @@ const TextGeneratorPage = () => {
   const [messages, setMessages] = useState([]);
 
   const onSubmit = async (values) => {
-    try {
-      const userMessage = {
-        content: values.prompt,
-      };
-      const newMessages = [...messages, userMessage];
-
-      const response = await axios.post("/api/text-generator/generate", {
-        messages: newMessages,
-      });
-      setMessages((current) => [...current, userMessage, response.data]);
-    } catch (error) {
-      if (error?.response?.status === 403) {
-      } else {
-      }
-    } finally {
-      // router.refresh();
-    }
+    console.log(values);
   };
   return (
     <>

@@ -4,7 +4,7 @@ import { useAppContext } from "@/context/Context";
 
 import logo from "../../public/images/logo/logo.png";
 import logoDark from "../../public/images/logo/logo-dark.png";
-import avatar from "../../public/images/team/team-01.jpg";
+import { useSession } from "next-auth/react";
 
 import Nav from "./Nav";
 import GridMenu from "./GridMenu";
@@ -21,6 +21,8 @@ const HeaderDashboard = ({ display }) => {
     activeMobileMenu,
     setActiveMobileMenu,
   } = useAppContext();
+
+  const { data: session } = useSession();
   return (
     <>
       <header className="rbt-dashboard-header rainbow-header header-default header-left-align rbt-fluid-header">
@@ -90,7 +92,12 @@ const HeaderDashboard = ({ display }) => {
                 <div className="account-access rbt-user-wrapper right-align-dropdown">
                   <div className="rbt-user ml--0">
                     <a className="admin-img" href="#">
-                      <Image src={avatar} alt="Admin" />
+                      <Image
+                        src={session?.user.image}
+                        alt="Admin"
+                        width={30}
+                        height={30}
+                      />
                     </a>
                   </div>
                   <div className="rbt-user-menu-list-wrapper">

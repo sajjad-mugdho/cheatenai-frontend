@@ -65,14 +65,11 @@ const Nav = () => {
         <li>
           <Link href="/pricing">Pricing</Link>
         </li>
-        <li>
-          <Link href="/AuthPage">Sign In</Link>
-        </li>
-        {session ? (
+        {session ? null : (
           <li>
-            <Link href="/profile-details">{session?.user?.name}</Link>
+            <Link href="/AuthPage">Sign In</Link>
           </li>
-        ) : null}
+        )}
       </ul>
     </>
   );
