@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import DashboardItem from "../../data/header.json";
+import { useSession } from "next-auth/react";
 
 import menuImg from "../../public/images/menu-img/menu-img-2.png";
 import { useAppContext } from "@/context/Context";
@@ -13,6 +14,7 @@ const Nav = () => {
   const { showItem, setShowItem } = useAppContext();
 
   const isActive = (href) => router.pathname === href;
+  const { data: session } = useSession();
 
   return (
     <>
@@ -66,6 +68,11 @@ const Nav = () => {
         <li>
           <Link href="/AuthPage">Sign In</Link>
         </li>
+        {session ? (
+          <li>
+            <Link href="/profile-details">{session?.user?.name}</Link>
+          </li>
+        ) : null}
       </ul>
     </>
   );

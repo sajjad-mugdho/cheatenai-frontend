@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAppContext } from "@/context/Context";
 import React, { useEffect } from "react";
-
+import axios from "axios";
+import { useSession, signIn, signOut } from "next-auth/react";
 import sal from "sal.js";
 
 import boxedLogo from "../../public/images/logo/boxed-logo.png";
@@ -12,6 +13,7 @@ import PageHead from "@/pages/Head";
 
 const UserAuth = () => {
   const { toggleAuth, setToggleAuth } = useAppContext();
+
   useEffect(() => {
     sal();
 
@@ -27,6 +29,39 @@ const UserAuth = () => {
       };
     });
   }, []);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("Login");
+  };
+
+  const handleGoogleLogin = () => {
+    signIn("google");
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(name, email, password);
+    try {
+      const response = await axios.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+
+      console.log("Signup success:", response.data);
+    } catch (error) {
+      console.error(
+        "Signup error:",
+        error.response?.data?.error || error.message
+      );
+    }
+  };
+
   return (
     <>
       <PageHead title={`${toggleAuth ? "Log In" : "SignUp"}`} />
@@ -49,7 +84,11 @@ const UserAuth = () => {
               <div className="signup-box-content">
                 <h4 className="title">Welcome Back!</h4>
                 <div className="social-btn-grp">
-                  <Link className="btn-default btn-border" href="#">
+                  <button
+                    onClick={() => handleGoogleLogin()}
+                    className="btn-default btn-border"
+                    href="#"
+                  >
                     <span className="icon-left">
                       <Image
                         src={google}
@@ -59,7 +98,7 @@ const UserAuth = () => {
                       />
                     </span>
                     Login with Google
-                  </Link>
+                  </button>
                   <Link className="btn-default btn-border" href="#">
                     <span className="icon-left">
                       <Image
@@ -78,7 +117,9 @@ const UserAuth = () => {
                   <hr />
                 </div>
                 {toggleAuth ? (
-                  <form>
+                  // login form
+
+                  <form onSubmit={handleLogin}>
                     <div className="input-section mail-section">
                       <div className="icon">
                         <i className="feather-mail"></i>
@@ -101,31 +142,40 @@ const UserAuth = () => {
                     </button>
                   </form>
                 ) : (
-                  <form>
+                  // signup form
+
+                  <form onSubmit={handleSignup}>
                     <div className="input-section mail-section">
                       <div className="icon">
                         <i className="feather-user"></i>
                       </div>
-                      <input type="text" placeholder="Enter Your Name" />
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter Your Name"
+                      />
                     </div>
                     <div className="input-section mail-section">
                       <div className="icon">
                         <i className="feather-mail"></i>
                       </div>
-                      <input type="email" placeholder="Enter email address" />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter email address"
+                      />
                     </div>
                     <div className="input-section password-section">
                       <div className="icon">
                         <i className="feather-lock"></i>
                       </div>
-                      <input type="password" placeholder="Create Password" />
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Create Password"
+                      />
                     </div>
-                    <div className="input-section password-section">
-                      <div className="icon">
-                        <i className="feather-lock"></i>
-                      </div>
-                      <input type="password" placeholder="Confirm Password" />
-                    </div>
+
                     <button type="submit" className="btn-default">
                       Sign Up
                     </button>

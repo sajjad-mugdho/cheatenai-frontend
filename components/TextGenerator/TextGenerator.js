@@ -1,12 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import sal from "sal.js";
 import Image from "next/image";
 
 import TextGeneratorData from "../../data/dashboard.json";
 import Reaction from "../Common/Reaction";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const TextGenerator = () => {
+  const router = useRouter();
+
+  const [messages, setMessages] = useState([]);
+
   useEffect(() => {
     sal();
 
@@ -22,9 +28,31 @@ const TextGenerator = () => {
       };
     });
   }, []);
+
+  const onSubmit = async (values) => {
+    try {
+      const userMessage = {
+        role: "user",
+        content: values.prompt,
+      };
+      const newMessages = [...messages, userMessage];
+
+      const response = await axios.post("/api/text-generator", {
+        messages: newMessages,
+      });
+      setMessages((current) => [...current, userMessage, response.data]);
+    } catch (error) {
+      if (error?.response?.status === 403) {
+      } else {
+      }
+    } finally {
+      router.refresh();
+    }
+  };
+
   return (
     <>
-      {TextGeneratorData &&
+      {/* {TextGeneratorData &&
         TextGeneratorData.textGenerator.map((data, index) => (
           <div
             className="chat-box-list pt--30"
@@ -105,7 +133,7 @@ const TextGenerator = () => {
               ))}
             </div>
           </div>
-        ))}
+        ))} */}
     </>
   );
 };

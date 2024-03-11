@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
+import { useSession, signIn, signOut } from "next-auth/react";
 import avatar from "../../public/images/team/team-01.jpg";
 import UserMenuItems from "./HeaderProps/UserMenuItems";
 
@@ -41,7 +41,7 @@ const UserMenu = () => {
         <hr className="mt--10 mb--10" />
         <ul className="user-list-wrapper">
           <li>
-            <Link href="/AuthPage">
+            <Link onClick={() => signOut()} href="/AuthPage">
               <i className="feather-log-out"></i>
               <span>Logout</span>
             </Link>

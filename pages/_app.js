@@ -1,5 +1,6 @@
 import { Router } from "next/router";
 import React, { useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 
 import "bootstrap/scss/bootstrap.scss";
 
@@ -15,7 +16,10 @@ import "react-tooltip/dist/react-tooltip.css";
 import "../public/scss/style.scss";
 import Loading from "@/components/Loading/Loading";
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -35,5 +39,15 @@ export default function App({ Component, pageProps }) {
     };
   }, []);
 
-  return <>{loading ? <Loading /> : <Component {...pageProps} />}</>;
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
+      )}
+    </>
+  );
 }

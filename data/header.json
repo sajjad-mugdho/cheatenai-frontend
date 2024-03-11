@@ -47,44 +47,12 @@
       "wdt": 40
     },
     {
-      "link": "/vedio-generator",
-      "isDisable": false,
-      "title": "Video Generator",
-      "img": "/images/generator-icon/video-camera_line.png",
-      "badge": "Hot",
-      "wdt": 27
-    },
-    {
       "link": "/code-generator",
       "isDisable": false,
       "title": "HTML Generator",
       "img": "/images/generator-icon/code-editor_line.png",
       "badge": "",
       "wdt": 44
-    },
-    {
-      "link": "#",
-      "isDisable": true,
-      "title": "Lyrics Generator",
-      "img": "/images/generator-icon/lyrics_line.png",
-      "badge": "Coming",
-      "wdt": 27
-    },
-    {
-      "link": "/image-editor",
-      "isDisable": false,
-      "title": "Photo Editor",
-      "img": "/images/generator-icon/photo-editor_line.png",
-      "badge": "Hot",
-      "wdt": 36
-    },
-    {
-      "link": "/image-generator",
-      "isDisable": false,
-      "title": "Image Generator",
-      "img": "/images/generator-icon/photo_line.png",
-      "badge": "",
-      "wdt": 36
     },
     {
       "link": "/text-generator",
@@ -125,14 +93,6 @@
       "img": "/images/generator-icon/text-voice_line.png",
       "badge": "",
       "wdt": 36
-    },
-    {
-      "link": "#",
-      "isDisable": true,
-      "title": "Chat with Documents",
-      "img": "/images/generator-icon/document_line.png",
-      "badge": "Coming",
-      "wdt": 31
     }
   ],
   "smallNavItem": [
@@ -146,38 +106,11 @@
       "icon": ""
     },
     {
-      "link": "/image-generator",
-      "isDisable": false,
-      "type": "default",
-      "img": "/images/generator-icon/photo.png",
-      "text": "Image Generator",
-      "badge": "Hot",
-      "icon": ""
-    },
-    {
       "link": "/code-generator",
       "isDisable": false,
       "type": "default",
       "img": "/images/generator-icon/code-editor.png",
       "text": "Code Generator",
-      "badge": "",
-      "icon": ""
-    },
-    {
-      "link": "/image-editor",
-      "isDisable": false,
-      "type": "default",
-      "img": "/images/generator-icon/photo-editor.png",
-      "text": "Image Editor",
-      "badge": "",
-      "icon": ""
-    },
-    {
-      "link": "/vedio-generator",
-      "isDisable": false,
-      "type": "default",
-      "img": "/images/generator-icon/video-camera.png",
-      "text": "Video Generator",
       "badge": "",
       "icon": ""
     },
@@ -190,16 +123,6 @@
       "badge": "",
       "icon": ""
     },
-    {
-      "link": "#",
-      "isDisable": true,
-      "type": "default",
-      "img": "/images/generator-icon/website-design.png",
-      "text": "Website Generator",
-      "badge": "Coming",
-      "icon": ""
-    },
-
     {
       "link": "/profile-details",
       "isDisable": false,
@@ -266,31 +189,10 @@
       "badge": ""
     },
     {
-      "link": "/image-generator",
-      "isDisable": false,
-      "title": "Image Generator",
-      "img": "/images/generator-icon/photo.png",
-      "badge": "NEW"
-    },
-    {
       "link": "/code-generator",
       "isDisable": false,
       "title": "Code Generator",
       "img": "/images/generator-icon/code-editor.png",
-      "badge": ""
-    },
-    {
-      "link": "/image-editor",
-      "isDisable": false,
-      "title": "Photo Editor",
-      "img": "/images/generator-icon/photo-editor.png",
-      "badge": ""
-    },
-    {
-      "link": "/vedio-generator",
-      "isDisable": false,
-      "title": "Video Generator",
-      "img": "/images/generator-icon/video-camera.png",
       "badge": ""
     },
     {
@@ -313,34 +215,6 @@
       "title": "HTML Generator",
       "img": "/images/generator-icon/code-editor.png",
       "badge": ""
-    },
-    {
-      "link": "#",
-      "isDisable": true,
-      "title": "Lyrics Generator",
-      "img": "/images/generator-icon/lyrics.png",
-      "badge": "Coming"
-    },
-    {
-      "link": "#",
-      "isDisable": false,
-      "title": "Speech to text",
-      "img": "/images/generator-icon/voice.png",
-      "badge": ""
-    },
-    {
-      "link": "#",
-      "isDisable": false,
-      "title": "Text to speech",
-      "img": "/images/generator-icon/text-voice.png",
-      "badge": ""
-    },
-    {
-      "link": "#",
-      "isDisable": true,
-      "title": "Chat with Documents",
-      "img": "/images/generator-icon/document.png",
-      "badge": "Coming"
     }
   ]
 }

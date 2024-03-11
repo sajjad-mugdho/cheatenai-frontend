@@ -1,7 +1,10 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { Tooltip } from "react-tooltip";
 
 const Form = () => {
+  const router = useRouter();
+
   return (
     <>
       <Tooltip id="my-tooltip" className="custom-tooltip tooltip-inner" />
@@ -13,21 +16,6 @@ const Form = () => {
           </div>
         </div>
         <div className="right-icons">
-          <div
-            className="form-icon icon-plus"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content="Choose File"
-          >
-            <input type="file" className="input-file" name="myfile" multiple />
-            <i className="feather-plus-circle"></i>
-          </div>
-          <a
-            className="form-icon icon-mic"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content="Voice Search"
-          >
-            <i className="feather-mic"></i>
-          </a>
           <a
             className="form-icon icon-send"
             data-tooltip-id="my-tooltip"

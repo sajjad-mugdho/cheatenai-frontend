@@ -8,7 +8,7 @@ const Context = ({ children }) => {
   const [mobile, setMobile] = useState(true);
   const [rightBar, setRightBar] = useState(true);
   const [toggleTop, setToggle] = useState(false);
-  const [toggleAuth, setToggleAuth] = useState(true);
+  const [toggleAuth, setToggleAuth] = useState(false);
   const [showItem, setShowItem] = useState(true);
   const [activeMobileMenu, setActiveMobileMenu] = useState(true);
 
