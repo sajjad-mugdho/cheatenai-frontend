@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import TextGeneratorData from "../../data/dashboard.json";
 import Reaction from "../Common/Reaction";
+import loading from "../../public/images/icons/loader-one.gif";
+import avatar from "../../public/images/team/avater.png";
 import { useAppContext } from "@/context/Context";
 
 const TextGenerator = () => {
@@ -24,22 +26,22 @@ const TextGenerator = () => {
     });
   }, []);
 
-  const { messages } = useAppContext();
+  const { messages, isLoading } = useAppContext();
   const { data: session } = useSession();
-  console.log(session?.user.email, messages);
+  console.log(messages, isLoading);
 
   return (
     <>
-      {messages &&
-        messages.map((data, index) => (
-          <div
-            className="chat-box-list pt--30"
-            id="chatContainer"
-            data-sal="slide-up"
-            data-sal-duration="700"
-            data-sal-delay="100"
-            key={index}
-          >
+      {messages?.map((message, index) => (
+        <div
+          className="chat-box-list pt--30"
+          id="chatContainer"
+          data-sal="slide-up"
+          data-sal-duration="700"
+          data-sal-delay="100"
+          key={index}
+        >
+          {message.role === "user" && (
             <div className="chat-box author-speech bg-flashlight">
               <div className="inner">
                 <div className="chat-section">
@@ -48,70 +50,80 @@ const TextGenerator = () => {
                       className="w-100"
                       width={40}
                       height={40}
-                      src={session?.user?.image}
+                      src={session?.user?.image || avatar}
                       alt="Author"
                     />
                   </div>
                   <div className="chat-content">
                     <h6 className="title">{session?.user.name}</h6>
-                    {/* <p>{data}</p> */}
+                    <p>{message.content}</p>
                   </div>
                 </div>
               </div>
             </div>
+          )}
 
-            {/* <div className="chat-box ai-speech bg-flashlight">
-              {data.content.map((innerData, innerIndex) => (
-                <div
-                  className="inner top-flashlight leftside light-xl"
-                  key={innerIndex}
-                >
-                  <div className="chat-section generate-section">
-                    <div className="author">
-                      <Image
-                        src={innerData.img}
-                        width={40}
-                        height={40}
-                        alt="Loader Images"
-                      />
-                    </div>
-                    <div className="chat-content">
-                      <h6 className="title color-text-off mb--0">
-                        {innerData.text}
-                      </h6>
-                    </div>
+          {message.role !== "user" && (
+            <div className="chat-box ai-speech bg-flashlight">
+              <div
+                className="inner top-flashlight leftside light-xl"
+                key={index}
+              >
+                <div className="chat-section generate-section">
+                  <div className="author">
+                    <Image
+                      src={loading}
+                      width={40}
+                      height={40}
+                      alt="Loader Images"
+                    />
                   </div>
-                  <div className="chat-section">
-                    <div className="author">
-                      <Image
-                        className="w-100"
-                        src={innerData.aiImg}
-                        width={40}
-                        height={40}
-                        alt="ChatenAI"
-                      />
-                    </div>
-                    <div className="chat-content">
-                      <h6 className="title">
-                        {innerData.title}
-                        <span className="rainbow-badge-card">
-                          {innerData?.badge}
-                        </span>
-                      </h6>
-                      {innerData.desc2 ? (
-                        <p className="">{innerData.desc2}</p>
-                      ) : (
-                        ""
-                      )}
-                      <p className="mb--20">{innerData.desc}</p>
-                      <Reaction />
-                    </div>
+                  <div className="chat-content">
+                    <h6 className="title color-text-off mb--0">
+                      Generating answers for you…
+                    </h6>
                   </div>
                 </div>
-              ))}
-            </div> */}
+                <div className="chat-section">
+                  <div className="author">
+                    <Image
+                      className="w-100"
+                      src={message.avatar || avatar}
+                      width={40}
+                      height={40}
+                      alt="ChatenAI"
+                    />
+                  </div>
+                  <div className="chat-content">
+                    <h6 className="title">
+                      ChatenAI
+                      <span className="rainbow-badge-card">
+                        {message?.badge}
+                      </span>
+                    </h6>
+                    {message.desc2 ? <p className="">{message.desc2}</p> : ""}
+                    <p className="mb--20">{message.text}</p>
+                    <Reaction />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+
+      {isLoading && (
+        <div className="chat-section generate-section">
+          <div className="author">
+            <Image src={loading} width={40} height={40} alt="Loader Images" />
           </div>
-        ))}
+          <div className="chat-content">
+            <h6 className="title color-text-off mb--0">
+              Generating answers for you…
+            </h6>
+          </div>
+        </div>
+      )}
     </>
   );
 };

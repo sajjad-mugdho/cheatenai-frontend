@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useRouter } from "next/navigation";
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export const CreateContext = createContext();
@@ -11,10 +13,12 @@ const Context = ({ children }) => {
   const [toggleTop, setToggle] = useState(false);
   const [toggleAuth, setToggleAuth] = useState(false);
   const [showItem, setShowItem] = useState(true);
+  const [isLoading, setIsloading] = useState(false);
+
   const [activeMobileMenu, setActiveMobileMenu] = useState(true);
 
   const [messages, setMessages] = useState([]);
-
+  const router = useRouter();
   const checkScreenSize = () => {
     if (window.innerWidth < 1200) {
       setMobile(false);
@@ -41,27 +45,19 @@ const Context = ({ children }) => {
     try {
       const userMessage = { role: "user", content: prompt };
       const newMessages = [...messages, userMessage];
-
+      setIsloading(true);
       const response = await axios.post("/api/text-generator/generate", {
         messages: newMessages,
       });
       setMessages((current) => [...current, userMessage, response.data]);
     } catch (error) {
       if (error?.response?.status === 403) {
+        setIsloading(false);
       } else {
       }
     } finally {
+      setIsloading(false);
     }
-
-    // try {
-    //   const response = await axios.post("/api/text-generator/generate", {
-    //     prompt,
-    //   });
-
-    //   setGenerateText(response);
-    // } catch (error) {
-    //   console.error("Error generating text:", error.message);
-    // }
   };
 
   return (
@@ -83,6 +79,7 @@ const Context = ({ children }) => {
         shouldCollapseRightbar,
         messages,
         handleGenerateText,
+        isLoading,
       }}
     >
       {children}
