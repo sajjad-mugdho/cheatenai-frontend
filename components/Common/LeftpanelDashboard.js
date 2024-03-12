@@ -143,13 +143,13 @@ const LeftpanelDashboard = () => {
                     className="w-100"
                     width={30}
                     height={30}
-                    src={session?.user.image}
+                    src={session?.user.image || avatar}
                     alt="Author"
                   />
                 </div>
                 <div className="author-desc">
-                  <h6>{session?.user.name}</h6>
-                  <p>{session?.user.email}</p>
+                  <h6>{session?.user.name || "User"}</h6>
+                  <p>{session?.user.email || "user@gmail.com"}</p>
                 </div>
                 <div className="author-badge">Free</div>
               </Link>

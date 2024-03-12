@@ -63,7 +63,7 @@ const TextGenerator = () => {
                     />
                   </div>
                   <div className="chat-content">
-                    <h6 className="title">{session?.user.name}</h6>
+                    <h6 className="title">{session?.user.name || "user"}</h6>
                     <p>{message.content}</p>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
+import avatar from "../../public/images/team/avater-g.png";
 
 import UserMenuItems from "./HeaderProps/UserMenuItems";
 
@@ -12,14 +13,14 @@ const UserMenu = () => {
         <div className="rbt-admin-profile">
           <div className="admin-thumbnail">
             <Image
-              src={session?.user?.image}
+              src={session?.user?.image || avatar}
               alt="User Images"
               width={20}
               height={20}
             />
           </div>
           <div className="admin-info">
-            <span className="name">Rafi Dev</span>
+            <span className="name">{session?.user.name || "User"}</span>
             <Link
               className="rbt-btn-link color-primary"
               href="/profile-details"
