@@ -46,10 +46,16 @@ const Context = ({ children }) => {
       const userMessage = { role: "user", content: prompt };
       const newMessages = [...messages, userMessage];
       setIsloading(true);
+
       const response = await axios.post("/api/text-generator/generate", {
         messages: newMessages,
       });
-      setMessages((current) => [...current, userMessage, response.data]);
+
+      const aiMessage = {
+        role: "assistant",
+        ...response.data,
+      };
+      setMessages((current) => [...current, userMessage, aiMessage]);
     } catch (error) {
       if (error?.response?.status === 403) {
         setIsloading(false);

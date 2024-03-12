@@ -16,8 +16,7 @@ export default async function handler(req, res) {
       messages,
     });
 
-    console.log("res", response);
-    return res.json({ text: response.choices[0].message.content });
+    return res.json({ content: response.choices[0].message.content });
   } catch (error) {
     console.error("Error generating text:", error.message);
     return res.status(500).json({ error: "Internal Server Error" });
