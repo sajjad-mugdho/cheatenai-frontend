@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import sal from "sal.js";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-
+import TextGeneratorData from "../../data/dashboard.json";
 import Reaction from "../Common/Reaction";
 import loading from "../../public/images/icons/loader-one.gif";
 import avatar from "../../public/images/team/avater.png";
@@ -29,13 +29,6 @@ const TextGenerator = () => {
   const { messages, isLoading } = useAppContext();
   const { data: session } = useSession();
   console.log(messages, isLoading);
-
-  useEffect(() => {
-    const chatContainer = document.getElementById("chatContainer");
-    if (chatContainer) {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-  }, [messages]);
 
   return (
     <>
@@ -89,12 +82,13 @@ const TextGenerator = () => {
                   <div className="chat-content">
                     <h6 className="title">
                       ChatenAI
-                      <span className="rainbow-badge-card">Bot</span>
+                      <span className="rainbow-badge-card">
+                        {message?.badge}
+                      </span>
                     </h6>
 
                     <p className="mb--20">{message.content}</p>
                   </div>
-                  <Reaction />
                 </div>
               </div>
             </div>
