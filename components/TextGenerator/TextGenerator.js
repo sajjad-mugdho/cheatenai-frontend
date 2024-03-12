@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Reaction from "../Common/Reaction";
 import loading from "../../public/images/icons/loader-one.gif";
 import avatar from "../../public/images/team/avater.png";
-import { useAppContext } from "@/context/Context";
+import { useAppContext } from "../../context/Context";
 
 const TextGenerator = () => {
   useEffect(() => {

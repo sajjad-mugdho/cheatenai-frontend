@@ -15,6 +15,7 @@ import "react-tooltip/dist/react-tooltip.css";
 
 import "../public/scss/style.scss";
 import Loading from "@/components/Loading/Loading";
+import Context from "@/context/Context";
 
 export default function App({
   Component,
@@ -44,9 +45,11 @@ export default function App({
       {loading ? (
         <Loading />
       ) : (
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
-        </SessionProvider>
+        <Context>
+          <SessionProvider session={session}>
+            <Component {...pageProps} />
+          </SessionProvider>
+        </Context>
       )}
     </>
   );

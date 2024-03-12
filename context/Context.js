@@ -14,11 +14,9 @@ const Context = ({ children }) => {
   const [toggleAuth, setToggleAuth] = useState(false);
   const [showItem, setShowItem] = useState(true);
   const [isLoading, setIsloading] = useState(false);
-
   const [activeMobileMenu, setActiveMobileMenu] = useState(true);
-
   const [messages, setMessages] = useState([]);
-  const router = useRouter();
+
   const checkScreenSize = () => {
     if (window.innerWidth < 1200) {
       setMobile(false);
