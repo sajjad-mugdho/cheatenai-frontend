@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import sal from "sal.js";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import TextGeneratorData from "../../data/dashboard.json";
+
 import Reaction from "../Common/Reaction";
 import loading from "../../public/images/icons/loader-one.gif";
 import avatar from "../../public/images/team/avater.png";
 import { useAppContext } from "@/context/Context";
 
 const TextGenerator = () => {
+  const [forceUpdate, setForceUpdate] = useState(0);
   useEffect(() => {
     sal();
 
@@ -24,7 +25,14 @@ const TextGenerator = () => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, []);
+    // Set up an interval to trigger a force update every 10 seconds
+    const intervalId = setInterval(() => {
+      setForceUpdate((prev) => prev + 1);
+    }, 3000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [forceUpdate]);
 
   const { messages, isLoading } = useAppContext();
   const { data: session } = useSession();
@@ -82,12 +90,11 @@ const TextGenerator = () => {
                   <div className="chat-content">
                     <h6 className="title">
                       ChatenAI
-                      <span className="rainbow-badge-card">
-                        {message?.badge}
-                      </span>
+                      <span className="rainbow-badge-card">Bot</span>
                     </h6>
 
                     <p className="mb--20">{message.content}</p>
+                    <Reaction />
                   </div>
                 </div>
               </div>

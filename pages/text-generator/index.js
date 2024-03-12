@@ -12,12 +12,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 const TextGeneratorPage = () => {
-  const router = useRouter();
-  const [messages, setMessages] = useState([]);
-
-  const onSubmit = async (values) => {
-    console.log(values);
-  };
   return (
     <>
       <PageHead title="Text Generator" />
