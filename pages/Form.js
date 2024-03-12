@@ -1,4 +1,4 @@
-import { useAppContext } from "../../context/Context";
+import { useAppContext } from "@/context/Context";
 import React from "react";
 import { Tooltip } from "react-tooltip";
 

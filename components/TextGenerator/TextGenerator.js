@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import Reaction from "../Common/Reaction";
 import loading from "../../public/images/icons/loader-one.gif";
 import avatar from "../../public/images/team/avater.png";
-import { useAppContext } from "../../context/Context";
+import { useAppContext } from "@/context/Context";
 
 const TextGenerator = () => {
   useEffect(() => {
@@ -89,13 +89,12 @@ const TextGenerator = () => {
                   <div className="chat-content">
                     <h6 className="title">
                       ChatenAI
-                      <span className="rainbow-badge-card">
-                        {message?.badge}
-                      </span>
+                      <span className="rainbow-badge-card">Bot</span>
                     </h6>
 
                     <p className="mb--20">{message.content}</p>
                   </div>
+                  <Reaction />
                 </div>
               </div>
             </div>
