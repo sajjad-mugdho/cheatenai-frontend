@@ -41,34 +41,10 @@
     {
       "link": "/text-generator",
       "isDisable": false,
-      "title": "Text Generator",
+      "title": "Article Generator",
       "img": "/images/generator-icon/text_line.png",
       "badge": "",
       "wdt": 40
-    },
-    {
-      "link": "/code-generator",
-      "isDisable": false,
-      "title": "HTML Generator",
-      "img": "/images/generator-icon/code-editor_line.png",
-      "badge": "",
-      "wdt": 44
-    },
-    {
-      "link": "/text-generator",
-      "isDisable": false,
-      "title": "Speech to text",
-      "img": "/images/generator-icon/voice_line.png",
-      "badge": "",
-      "wdt": 27
-    },
-    {
-      "link": "#",
-      "isDisable": true,
-      "title": "Website Generator",
-      "img": "/images/generator-icon/website-design_line.png",
-      "badge": "Coming",
-      "wdt": 36
     },
     {
       "link": "/code-generator",
@@ -89,7 +65,7 @@
     {
       "link": "/text-generator",
       "isDisable": false,
-      "title": "Text to speech",
+      "title": "Blog Post",
       "img": "/images/generator-icon/text-voice_line.png",
       "badge": "",
       "wdt": 36
@@ -184,7 +160,7 @@
     {
       "link": "/text-generator",
       "isDisable": false,
-      "title": "Text Generator",
+      "title": "Article Generator",
       "img": "/images/generator-icon/text.png",
       "badge": ""
     },
@@ -203,17 +179,10 @@
       "badge": ""
     },
     {
-      "link": "#",
-      "isDisable": true,
-      "title": "Website Generator",
-      "img": "/images/generator-icon/website-design.png",
-      "badge": "Coming"
-    },
-    {
       "link": "/code-generator",
       "isDisable": false,
-      "title": "HTML Generator",
-      "img": "/images/generator-icon/code-editor.png",
+      "title": "Blog Post",
+      "img": "/images/generator-icon/text.png",
       "badge": ""
     }
   ]

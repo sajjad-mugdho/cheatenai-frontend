@@ -6,8 +6,9 @@ import PopupMobileMenu from "@/components/Header/PopupMobileMenu";
 import LeftpanelDashboard from "@/components/Common/LeftpanelDashboard";
 import RightpanelDashboard from "@/components/Common/RightpanelDashboard";
 import Modal from "@/components/Common/Modal";
-import StaticbarDashboard from "@/components/Common/StaticbarDashboard";
+
 import EmailGenerator from "@/components/EmailGenerator/EmailGenerator";
+import StaticbarDashboardEmail from "@/components/Common/StaticbarDashboardEmail";
 
 const EmailGeneratorPage = () => {
   return (
@@ -29,7 +30,7 @@ const EmailGeneratorPage = () => {
                   <div className="content-page">
                     <EmailGenerator />
                   </div>
-                  <StaticbarDashboard />
+                  <StaticbarDashboardEmail />
                 </div>
               </div>
             </div>

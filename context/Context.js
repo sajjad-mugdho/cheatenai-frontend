@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
@@ -16,6 +15,7 @@ const Context = ({ children }) => {
   const [isLoading, setIsloading] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(true);
   const [messages, setMessages] = useState([]);
+  const [emailResponse, setemailResponse] = useState([]);
 
   const checkScreenSize = () => {
     if (window.innerWidth < 1200) {
@@ -64,6 +64,34 @@ const Context = ({ children }) => {
     }
   };
 
+  // Email Generator
+
+  const handleGenerateEmail = async (prompt) => {
+    try {
+      const userMessage = { role: "user", content: prompt };
+      const newMessages = [...messages, userMessage];
+      setIsloading(true);
+
+      const response = await axios.post("/api/email-generator/generate", {
+        messages: newMessages,
+      });
+
+      const aiMessage = {
+        role: "assistant",
+        ...response.data,
+      };
+
+      setemailResponse((current) => [...current, userMessage, aiMessage]);
+    } catch (error) {
+      if (error?.response?.status === 403) {
+        setIsloading(false);
+      } else {
+      }
+    } finally {
+      setIsloading(false);
+    }
+  };
+
   return (
     <CreateContext.Provider
       value={{
@@ -84,6 +112,8 @@ const Context = ({ children }) => {
         messages,
         handleGenerateText,
         isLoading,
+        handleGenerateEmail,
+        emailResponse,
       }}
     >
       {children}

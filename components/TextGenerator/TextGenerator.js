@@ -24,7 +24,7 @@ const TextGenerator = () => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [messages]);
+  }, [isLoading]);
 
   const { data: session } = useSession();
 
@@ -83,7 +83,9 @@ const TextGenerator = () => {
                       <span className="rainbow-badge-card">Bot</span>
                     </h6>
 
-                    <p className="mb--20">{message.content}</p>
+                    {message.content.split("\n").map((line, lineIndex) => (
+                      <p key={lineIndex}>{line}</p>
+                    ))}
                     <Reaction />
                   </div>
                 </div>
