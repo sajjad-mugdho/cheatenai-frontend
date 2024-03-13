@@ -9,7 +9,6 @@ import Modal from "@/components/Common/Modal";
 import TextGenerator from "@/components/TextGenerator/TextGenerator";
 import StaticbarDashboard from "@/components/Common/StaticbarDashboard";
 import axios from "axios";
-import { useRouter } from "next/router";
 
 const TextGeneratorPage = () => {
   return (
