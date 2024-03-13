@@ -9,7 +9,8 @@ import avatar from "../../public/images/team/avater.png";
 import { useAppContext } from "@/context/Context";
 
 const BlogGeneretor = () => {
-  const { messages, isLoading } = useAppContext();
+  const { blogPostResponse, isLoading } = useAppContext();
+
   useEffect(() => {
     sal();
 
@@ -24,13 +25,15 @@ const BlogGeneretor = () => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [isLoading]);
+  }, [blogPostResponse]);
 
   const { data: session } = useSession();
 
+  console.log(blogPostResponse);
+
   return (
     <>
-      {messages?.map((message, index) => (
+      {blogPostResponse?.map((message, index) => (
         <div
           className="chat-box-list pt--30"
           id="chatContainer"

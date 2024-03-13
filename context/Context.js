@@ -16,6 +16,7 @@ const Context = ({ children }) => {
   const [activeMobileMenu, setActiveMobileMenu] = useState(true);
   const [messages, setMessages] = useState([]);
   const [emailResponse, setemailResponse] = useState([]);
+  const [blogPostResponse, setBlogPostResponse] = useState([]);
 
   const checkScreenSize = () => {
     if (window.innerWidth < 1200) {
@@ -39,6 +40,7 @@ const Context = ({ children }) => {
   const shouldCollapseLeftbar = !mobile;
   const shouldCollapseRightbar = !rightBar;
 
+  // Text Generator
   const handleGenerateText = async (prompt) => {
     try {
       const userMessage = { role: "user", content: prompt };
@@ -92,6 +94,32 @@ const Context = ({ children }) => {
     }
   };
 
+  const handleBlogPostGeneretor = async (prompt) => {
+    try {
+      const userMessage = { role: "user", content: prompt };
+      const newMessages = [...messages, userMessage];
+      setIsloading(true);
+
+      const response = await axios.post("/api/blog-post-generator/generate", {
+        messages: newMessages,
+      });
+
+      const aiMessage = {
+        role: "assistant",
+        ...response.data,
+      };
+
+      setBlogPostResponse((current) => [...current, userMessage, aiMessage]);
+    } catch (error) {
+      if (error?.response?.status === 403) {
+        setIsloading(false);
+      } else {
+      }
+    } finally {
+      setIsloading(false);
+    }
+  };
+
   return (
     <CreateContext.Provider
       value={{
@@ -114,6 +142,8 @@ const Context = ({ children }) => {
         isLoading,
         handleGenerateEmail,
         emailResponse,
+        handleBlogPostGeneretor,
+        blogPostResponse,
       }}
     >
       {children}

@@ -4,14 +4,15 @@ import React from "react";
 import { Tooltip } from "react-tooltip";
 
 const StaticbarDashboardBlog = () => {
-  const { handleGenerateEmail, isLoading } = useAppContext();
+  const { handleBlogPostGeneretor, isLoading } = useAppContext();
+
   const submitPrompt = async (e) => {
     e.preventDefault();
 
     const form = e.target;
     const prompt = form.prompt.value;
     form.reset();
-    await handleGenerateEmail(prompt);
+    await handleBlogPostGeneretor(prompt);
   };
 
   return (
