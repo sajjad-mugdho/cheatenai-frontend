@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "./auth/[...nextauth]";
+import { authOptions } from "../auth/[...nextauth]";
+
 const openai = new OpenAI();
 
 const prefix = {
