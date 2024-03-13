@@ -1,6 +1,5 @@
 import React from "react";
 import ToolsItem from "./HeaderProps/ToolsItem";
-import Link from "next/link";
 
 const GridMenu = ({ ToolsData }) => {
   return (
@@ -8,11 +7,11 @@ const GridMenu = ({ ToolsData }) => {
       <div className="mainmenu-nav d-none d-lg-block one-menu">
         <ul className="mainmenu one-menu-item">
           <li className="with-megamenu has-menu-child-item position-relative menu-item-open">
-            <Link className="header-round-btn" href="#">
+            <a className="header-round-btn ">
               <span>
                 <i className="feather-grid"></i>
               </span>
-            </Link>
+            </a>
 
             <div className="rainbow-megamenu with-mega-item-2 right-align">
               <div className="wrapper">

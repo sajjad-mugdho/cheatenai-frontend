@@ -1,5 +1,6 @@
 import OpenAI from "openai";
-
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./auth/[...nextauth]";
 const openai = new OpenAI();
 
 const prefix = {
@@ -33,7 +34,13 @@ export default async function handler(req, res) {
   try {
     const { messages } = req.body;
     console.log(messages);
+    const session = await getServerSession(req, res, authOptions);
 
+    if (!session) {
+      return res
+        .status(403)
+        .json({ error: "Unauthorized, User is not loged in" });
+    }
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [prefix, ...messages],
