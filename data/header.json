@@ -63,7 +63,7 @@
       "wdt": 44
     },
     {
-      "link": "/text-generator",
+      "link": "/blog-post-generate",
       "isDisable": false,
       "title": "Blog Post",
       "img": "/images/generator-icon/text-voice_line.png",
@@ -179,7 +179,7 @@
       "badge": ""
     },
     {
-      "link": "/code-generator",
+      "link": "/blog-post-generate",
       "isDisable": false,
       "title": "Blog Post",
       "img": "/images/generator-icon/text.png",
