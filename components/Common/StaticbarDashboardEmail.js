@@ -10,9 +10,8 @@ const StaticbarDashboardEmail = () => {
 
     const form = e.target;
     const prompt = form.prompt.value;
-
-    await handleGenerateEmail(prompt);
     form.reset();
+    await handleGenerateEmail(prompt);
   };
 
   return (

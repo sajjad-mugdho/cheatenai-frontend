@@ -10,9 +10,8 @@ const Form = () => {
 
     const form = e.target;
     const prompt = form.prompt.value;
-
-    await handleGenerateText(prompt);
     form.reset();
+    await handleGenerateText(prompt);
   };
   return (
     <>
