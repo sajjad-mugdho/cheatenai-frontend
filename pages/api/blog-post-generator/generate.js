@@ -38,10 +38,12 @@ export default async function handler(req, res) {
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      return res
-        .status(403)
-        .json({ error: "Unauthorized, User is not loged in" });
+      return res.json({
+        error: "Unauthorized, User is not loged in",
+        status: 403,
+      });
     }
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [prefix, ...messages],
