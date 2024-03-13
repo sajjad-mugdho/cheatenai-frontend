@@ -86,7 +86,7 @@ const BlogGeneretor = () => {
                       <span className="rainbow-badge-card">Bot</span>
                     </h6>
 
-                    {message.content.split("\n").map((line, lineIndex) => (
+                    {message?.content?.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex}>{line}</p>
                     ))}
                     <Reaction />

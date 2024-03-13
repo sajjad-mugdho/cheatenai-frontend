@@ -20,48 +20,51 @@ const Nav = () => {
     <>
       <ul className="mainmenu">
         <li>
-          <Link href="/dashboard">Welcome</Link>
+          <Link href="/">Welcome</Link>
         </li>
-        <li className="with-megamenu has-menu-child-item position-relative">
-          <a
-            href="#"
-            onClick={() => setShowItem(!showItem)}
-            className={`${!showItem ? "open" : ""}`}
-          >
-            Dashboard
-          </a>
-          <div
-            className={`rainbow-megamenu right-align with-mega-item-2 ${
-              showItem ? "" : "d-block"
-            }`}
-          >
-            <div className="wrapper p-0">
-              <div className="row row--0">
-                <div className="col-lg-6 single-mega-item">
-                  <h3 className="rbt-short-title">DASHBOARD PAGES</h3>
-                  <ul className="mega-menu-item">
-                    {DashboardItem &&
-                      DashboardItem.navDashboardItem.map((data, index) => (
-                        <li key={index}>
-                          <Link
-                            href={data.link}
-                            className={isActive(data.link) ? "active" : ""}
-                          >
-                            {data.text}
-                          </Link>
-                        </li>
-                      ))}
-                  </ul>
-                </div>
-                <div className="col-lg-6 single-mega-item">
-                  <div className="header-menu-img">
-                    <Image src={menuImg} alt="Menu Split Image" />
+        {session ? (
+          <li className="with-megamenu has-menu-child-item position-relative">
+            <a
+              href="/dashboard"
+              onClick={() => setShowItem(!showItem)}
+              className={`${!showItem ? "open" : ""}`}
+            >
+              Dashboard
+            </a>
+            <div
+              className={`rainbow-megamenu right-align with-mega-item-2 ${
+                showItem ? "" : "d-block"
+              }`}
+            >
+              <div className="wrapper p-0">
+                <div className="row row--0">
+                  <div className="col-lg-6 single-mega-item">
+                    <h3 className="rbt-short-title">DASHBOARD PAGES</h3>
+                    <ul className="mega-menu-item">
+                      {DashboardItem &&
+                        DashboardItem.navDashboardItem.map((data, index) => (
+                          <li key={index}>
+                            <Link
+                              href={data.link}
+                              className={isActive(data.link) ? "active" : ""}
+                            >
+                              {data.text}
+                            </Link>
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                  <div className="col-lg-6 single-mega-item">
+                    <div className="header-menu-img">
+                      <Image src={menuImg} alt="Menu Split Image" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li>
+          </li>
+        ) : null}
+
         <li>
           <Link href="/pricing">Pricing</Link>
         </li>

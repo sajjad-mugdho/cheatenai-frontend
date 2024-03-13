@@ -95,7 +95,7 @@ const EmailGenerator = () => {
                     <h6 className="title">
                       ChatenAI <span className="rainbow-badge-card">Bot</span>
                     </h6>
-                    {email.content.split("\n").map((line, lineIndex) => (
+                    {email?.content?.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex}>{line}</p>
                     ))}
                     {/* <p className="mb--20">{innerData.dear}</p>

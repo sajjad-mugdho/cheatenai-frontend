@@ -9,34 +9,36 @@ import Modal from "@/components/Common/Modal";
 
 import EmailGenerator from "@/components/EmailGenerator/EmailGenerator";
 import StaticbarDashboardEmail from "@/components/Common/StaticbarDashboardEmail";
+import ProtectedRoute from "@/components/Protected/ProtectedRoute";
 
 const EmailGeneratorPage = () => {
   return (
     <>
       <PageHead title="Email Generator" />
+      <ProtectedRoute>
+        <main className="page-wrapper rbt-dashboard-page">
+          <Context>
+            <div className="rbt-panel-wrapper">
+              <HeaderDashboard display="" />
+              <PopupMobileMenu />
+              <LeftpanelDashboard />
+              <RightpanelDashboard />
+              <Modal />
 
-      <main className="page-wrapper rbt-dashboard-page">
-        <Context>
-          <div className="rbt-panel-wrapper">
-            <HeaderDashboard display="" />
-            <PopupMobileMenu />
-            <LeftpanelDashboard />
-            <RightpanelDashboard />
-            <Modal />
-
-            <div className="rbt-main-content">
-              <div className="rbt-daynamic-page-content">
-                <div className="rbt-dashboard-content">
-                  <div className="content-page">
-                    <EmailGenerator />
+              <div className="rbt-main-content">
+                <div className="rbt-daynamic-page-content">
+                  <div className="rbt-dashboard-content">
+                    <div className="content-page">
+                      <EmailGenerator />
+                    </div>
+                    <StaticbarDashboardEmail />
                   </div>
-                  <StaticbarDashboardEmail />
                 </div>
               </div>
             </div>
-          </div>
-        </Context>
-      </main>
+          </Context>
+        </main>
+      </ProtectedRoute>
     </>
   );
 };

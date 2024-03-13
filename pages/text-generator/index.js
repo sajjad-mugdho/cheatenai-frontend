@@ -9,34 +9,36 @@ import Modal from "@/components/Common/Modal";
 import TextGenerator from "@/components/TextGenerator/TextGenerator";
 import StaticbarDashboard from "@/components/Common/StaticbarDashboard";
 import axios from "axios";
+import ProtectedRoute from "@/components/Protected/ProtectedRoute";
 
 const TextGeneratorPage = () => {
   return (
     <>
       <PageHead title="Text Generator" />
+      <ProtectedRoute>
+        <main className="page-wrapper rbt-dashboard-page">
+          <Context>
+            <div className="rbt-panel-wrapper">
+              <HeaderDashboard display="" />
+              <PopupMobileMenu />
+              <LeftpanelDashboard />
+              <RightpanelDashboard />
+              <Modal />
 
-      <main className="page-wrapper rbt-dashboard-page">
-        <Context>
-          <div className="rbt-panel-wrapper">
-            <HeaderDashboard display="" />
-            <PopupMobileMenu />
-            <LeftpanelDashboard />
-            <RightpanelDashboard />
-            <Modal />
-
-            <div className="rbt-main-content">
-              <div className="rbt-daynamic-page-content">
-                <div className="rbt-dashboard-content">
-                  <div className="content-page">
-                    <TextGenerator />
+              <div className="rbt-main-content">
+                <div className="rbt-daynamic-page-content">
+                  <div className="rbt-dashboard-content">
+                    <div className="content-page">
+                      <TextGenerator />
+                    </div>
+                    <StaticbarDashboard />
                   </div>
-                  <StaticbarDashboard />
                 </div>
               </div>
             </div>
-          </div>
-        </Context>
-      </main>
+          </Context>
+        </main>
+      </ProtectedRoute>
     </>
   );
 };
