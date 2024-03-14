@@ -32,7 +32,12 @@ const UserAuth = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Login");
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+
+    signIn("credentials", { email, password }, { redirect: false });
   };
 
   const handleGoogleLogin = () => {
@@ -87,7 +92,6 @@ const UserAuth = () => {
                   <button
                     onClick={() => handleGoogleLogin()}
                     className="btn-default btn-border"
-                    href="#"
                   >
                     <span className="icon-left">
                       <Image
@@ -99,7 +103,7 @@ const UserAuth = () => {
                     </span>
                     Login with Google
                   </button>
-                  <Link className="btn-default btn-border" href="#">
+                  <button className="btn-default btn-border">
                     <span className="icon-left">
                       <Image
                         src={facebook}
@@ -109,7 +113,7 @@ const UserAuth = () => {
                       />
                     </span>
                     Login with Facebook
-                  </Link>
+                  </button>
                 </div>
                 <div className="text-social-area">
                   <hr />
@@ -124,13 +128,21 @@ const UserAuth = () => {
                       <div className="icon">
                         <i className="feather-mail"></i>
                       </div>
-                      <input type="email" placeholder="Enter email address" />
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter email address"
+                      />
                     </div>
                     <div className="input-section password-section">
                       <div className="icon">
                         <i className="feather-lock"></i>
                       </div>
-                      <input type="password" placeholder="Password" />
+                      <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                      />
                     </div>
                     <div className="forget-text">
                       <Link className="btn-read-more" href="#">
@@ -185,13 +197,12 @@ const UserAuth = () => {
               <div className="signup-box-footer">
                 <div className="bottom-text">
                   Don&apos;t have an account?
-                  <Link
+                  <a
                     className="btn-read-more ps-2"
-                    href="#"
                     onClick={() => setToggleAuth(!toggleAuth)}
                   >
                     {toggleAuth ? <span>Sign Up</span> : <span>Sign In</span>}
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
