@@ -8,34 +8,36 @@ import RightpanelDashboard from "@/components/Common/RightpanelDashboard";
 import Modal from "@/components/Common/Modal";
 import StaticbarDashboard from "@/components/Common/StaticbarDashboard";
 import CodeGenerator from "@/components/CodeGenerator/CodeGenerator";
+import ProtectedRoute from "@/components/Protected/ProtectedRoute";
 
 const CodeGeneratorPage = () => {
   return (
     <>
       <PageHead title="Code Generator" />
+      <ProtectedRoute>
+        <main className="page-wrapper rbt-dashboard-page">
+          <Context>
+            <div className="rbt-panel-wrapper">
+              <HeaderDashboard display="" />
+              <PopupMobileMenu />
+              <LeftpanelDashboard />
+              <RightpanelDashboard />
+              <Modal />
 
-      <main className="page-wrapper rbt-dashboard-page">
-        <Context>
-          <div className="rbt-panel-wrapper">
-            <HeaderDashboard display="" />
-            <PopupMobileMenu />
-            <LeftpanelDashboard />
-            <RightpanelDashboard />
-            <Modal />
-
-            <div className="rbt-main-content">
-              <div className="rbt-daynamic-page-content">
-                <div className="rbt-dashboard-content">
-                  <div className="content-page">
-                    <CodeGenerator />
+              <div className="rbt-main-content">
+                <div className="rbt-daynamic-page-content">
+                  <div className="rbt-dashboard-content">
+                    <div className="content-page">
+                      <CodeGenerator />
+                    </div>
+                    <StaticbarDashboard />
                   </div>
-                  <StaticbarDashboard />
                 </div>
               </div>
             </div>
-          </div>
-        </Context>
-      </main>
+          </Context>
+        </main>
+      </ProtectedRoute>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useAppContext } from "@/context/Context";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSession, signIn, signOut } from "next-auth/react";
 import sal from "sal.js";
@@ -13,6 +13,7 @@ import PageHead from "@/pages/Head";
 
 const UserAuth = () => {
   const { toggleAuth, setToggleAuth } = useAppContext();
+  const [isLoading, setisLoading] = useState(false);
 
   useEffect(() => {
     sal();
@@ -31,13 +32,15 @@ const UserAuth = () => {
   }, []);
 
   const handleLogin = (e) => {
+    setisLoading(true);
     e.preventDefault();
-
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
     console.log(email, password);
 
     signIn("credentials", { email, password }, { redirect: false });
+    setisLoading(false);
   };
 
   const handleGoogleLogin = () => {
@@ -45,11 +48,12 @@ const UserAuth = () => {
   };
 
   const handleSignup = async (e) => {
+    setisLoading(true);
     e.preventDefault();
-
-    const name = e.target.name.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
     console.log(name, email, password);
     try {
       const response = await axios.post("/api/auth/signup", {
@@ -59,6 +63,8 @@ const UserAuth = () => {
       });
 
       console.log("Signup success:", response.data);
+      form.reset();
+      setisLoading(false);
     } catch (error) {
       console.error(
         "Signup error:",
@@ -149,7 +155,11 @@ const UserAuth = () => {
                         <span>Forgot password</span>
                       </Link>
                     </div>
-                    <button type="submit" className="btn-default">
+                    <button
+                      disabled={isLoading}
+                      type="submit"
+                      className="btn-default"
+                    >
                       Sign In
                     </button>
                   </form>
@@ -188,7 +198,11 @@ const UserAuth = () => {
                       />
                     </div>
 
-                    <button type="submit" className="btn-default">
+                    <button
+                      disabled={isLoading}
+                      type="submit"
+                      className="btn-default"
+                    >
                       Sign Up
                     </button>
                   </form>

@@ -57,21 +57,21 @@ export const authOptions = {
   ],
 
   callbacks: {
-    async signIn(user, account, profile) {
-      console.log("signIn", user, account, profile);
-      return Promise.resolve(true);
+    async signIn({ user, account, profile, isNewUser }) {
+      console.log("signIn", user, account, profile, isNewUser);
+      return true;
     },
-    // async redirect(url, baseUrl) {
-    //   console.log("redirect", url, baseUrl);
-    //   return Promise.resolve(baseUrl);
-    // },
-    async session(session, user) {
-      console.log("session", session, user);
-      return Promise.resolve(session);
+    async redirect({ url, baseUrl }) {
+      console.log("redirect", url, baseUrl);
+      return baseUrl;
     },
-    async jwt(token, user, account, profile, isNewUser) {
+    async session({ session, user, token }) {
+      console.log("session", session, user, token);
+      return session;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
       console.log("jwt", token, user, account, profile, isNewUser);
-      return Promise.resolve(token);
+      return token;
     },
   },
 };

@@ -29,7 +29,7 @@ const BlogGeneretor = () => {
 
   const { data: session } = useSession();
 
-  console.log(blogPostResponse);
+  console.log(blogPostResponse, session);
 
   return (
     <>
@@ -70,6 +70,7 @@ const BlogGeneretor = () => {
                 className="inner top-flashlight leftside light-xl"
                 key={index}
               >
+                a
                 <div className="chat-section">
                   <div className="author">
                     <Image

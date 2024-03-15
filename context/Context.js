@@ -10,7 +10,7 @@ const Context = ({ children }) => {
   const [mobile, setMobile] = useState(true);
   const [rightBar, setRightBar] = useState(true);
   const [toggleTop, setToggle] = useState(false);
-  const [toggleAuth, setToggleAuth] = useState(false);
+  const [toggleAuth, setToggleAuth] = useState(true);
   const [showItem, setShowItem] = useState(true);
   const [isLoading, setIsloading] = useState(false);
   const [activeMobileMenu, setActiveMobileMenu] = useState(true);
