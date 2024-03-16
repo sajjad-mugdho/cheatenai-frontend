@@ -22,7 +22,7 @@ const PopupMobileMenu = () => {
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, [activeMobileMenu]);
+  }, [activeMobileMenu, handleResize]);
 
   return (
     <>

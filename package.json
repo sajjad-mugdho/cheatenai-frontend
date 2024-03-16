@@ -28,8 +28,6 @@
     "sal.js": "^0.5.0",
     "sass": "^1.69.7",
     "slick-carousel": "^1.8.1",
-    "socket.io": "^4.7.5",
-    "socket.io-client": "^4.7.5",
     "swr": "^2.2.5",
     "venobox": "^2.1.4"
   },

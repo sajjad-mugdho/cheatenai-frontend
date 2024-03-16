@@ -24,13 +24,13 @@ const Nav = () => {
         </li>
         {session ? (
           <li className="with-megamenu has-menu-child-item position-relative">
-            <a
+            <Link
               href="/dashboard"
               onClick={() => setShowItem(!showItem)}
               className={`${!showItem ? "open" : ""}`}
             >
               Dashboard
-            </a>
+            </Link>
             <div
               className={`rainbow-megamenu right-align with-mega-item-2 ${
                 showItem ? "" : "d-block"

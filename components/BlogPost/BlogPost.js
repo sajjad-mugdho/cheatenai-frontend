@@ -13,6 +13,7 @@ const BlogGeneretor = () => {
   const { isLoading } = useAppContext();
   const {
     data: blogPostResponse,
+    isLoading: isBlogLoading,
     isError,
     mutate,
   } = useFetchData("/api/blog-post-generator/get-post");
@@ -31,11 +32,11 @@ const BlogGeneretor = () => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [blogPostResponse]);
+  }, [blogPostResponse?.blogPosts]);
 
   const { data: session } = useSession();
 
-  console.log(blogPostResponse?.blogPosts, session);
+  console.log(blogPostResponse?.blogPosts, isBlogLoading);
 
   return (
     <>
