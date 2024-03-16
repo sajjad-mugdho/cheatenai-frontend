@@ -55,9 +55,9 @@ export default async function handler(req, res) {
 
     const aiResponseContent = response.choices[0].message.content;
     // Save the response to the database using Prisma
-    const savedResponse = await db.OpenAIResponse.create({
+    const savedResponse = await db.Blog.create({
       data: {
-        userId: "cltrsotlf00012819z64607j8",
+        userId: session.user.id,
         role: "assistant",
         content: aiResponseContent,
         model: "blog-post",

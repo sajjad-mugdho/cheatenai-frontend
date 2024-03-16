@@ -1,9 +1,10 @@
 import { useAppContext } from "@/context/Context";
-import React from "react";
+import React, { useRef } from "react";
 import { Tooltip } from "react-tooltip";
 
 const Form = () => {
   const { handleGenerateText } = useAppContext();
+  const textareaRef = useRef(null);
 
   const submitPrompt = async (e) => {
     e.preventDefault();
@@ -13,6 +14,15 @@ const Form = () => {
     form.reset();
     await handleGenerateText(prompt);
   };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Prevent textarea from adding new line
+
+      e.target.form.dispatchEvent(new Event("submit", { cancelable: true }));
+    }
+  };
+
   return (
     <>
       <Tooltip id="my-tooltip" className="custom-tooltip tooltip-inner" />
@@ -21,6 +31,8 @@ const Form = () => {
           name="prompt"
           rows="1"
           placeholder="Send a message..."
+          onKeyDown={handleKeyDown} // Add keydown event listener
+          ref={textareaRef}
         ></textarea>
         <div className="left-icons">
           <div title="ChatenAI" className="form-icon icon-gpt">

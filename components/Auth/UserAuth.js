@@ -47,6 +47,10 @@ const UserAuth = () => {
     signIn("google");
   };
 
+  const handleFacebookLigin = () => {
+    signIn("facebook");
+  };
+
   const handleSignup = async (e) => {
     setisLoading(true);
     e.preventDefault();
@@ -109,7 +113,10 @@ const UserAuth = () => {
                     </span>
                     Login with Google
                   </button>
-                  <button className="btn-default btn-border">
+                  <button
+                    onClick={() => handleFacebookLigin()}
+                    className="btn-default btn-border"
+                  >
                     <span className="icon-left">
                       <Image
                         src={facebook}

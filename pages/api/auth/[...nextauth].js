@@ -61,19 +61,17 @@ export const authOptions = {
       // console.log("signIn", user, account, profile, isNewUser);
       return true;
     },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl;
-    // },
+    async redirect({ url, baseUrl }) {
+      return baseUrl;
+    },
     async session({ session, user, token }) {
-      if (token) {
+      if (user) {
         session.user = {
-          id: user.id, // Use user.id instead of token.id
-          name: user.name,
-          email: user.email,
-          image: user.image,
+          ...session.user,
+          id: user.id, // Assuming user.id is the userId
         };
       }
-      // console.log("session callback", session, user, token);
+
       return session;
     },
 

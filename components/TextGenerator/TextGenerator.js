@@ -7,9 +7,17 @@ import Reaction from "../Common/Reaction";
 import loading from "../../public/images/icons/loader-one.gif";
 import avatar from "../../public/images/team/avater.png";
 import { useAppContext } from "@/context/Context";
+import { useFetchData } from "@/lib/featcher";
 
 const TextGenerator = () => {
-  const { messages, isLoading } = useAppContext();
+  const { isLoading } = useAppContext();
+
+  const {
+    data: messages,
+    isLoading: isArticleLoading,
+    isError,
+    mutate,
+  } = useFetchData("/api/text-generator/get-article");
   useEffect(() => {
     sal();
 
@@ -24,13 +32,14 @@ const TextGenerator = () => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [isLoading]);
+  }, [messages, isLoading]);
 
   const { data: session } = useSession();
+  console.log(messages, session);
 
   return (
     <>
-      {messages?.map((message, index) => (
+      {messages?.articles.map((message, index) => (
         <div
           className="chat-box-list pt--30"
           id="chatContainer"
@@ -39,7 +48,7 @@ const TextGenerator = () => {
           data-sal-delay="100"
           key={index}
         >
-          {message.role === "user" && (
+          {message.prompt && (
             <div className="chat-box author-speech bg-flashlight">
               <div className="inner">
                 <div className="chat-section">
@@ -54,7 +63,7 @@ const TextGenerator = () => {
                   </div>
                   <div className="chat-content">
                     <h6 className="title">{session?.user.name || "user"}</h6>
-                    <p>{message.content}</p>
+                    <p>{message.prompt}</p>
                   </div>
                 </div>
               </div>

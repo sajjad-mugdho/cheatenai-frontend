@@ -3,16 +3,23 @@ import React, { useEffect } from "react";
 import sal from "sal.js";
 import Image from "next/image";
 
-import EmailGeneratorData from "../../data/dashboard.json";
 import Reaction from "../Common/Reaction";
 import { useAppContext } from "@/context/Context";
 import avatar from "../../public/images/team/avater.png";
 import loading from "../../public/images/icons/loader-one.gif";
 import { useSession } from "next-auth/react";
+import { useFetchData } from "@/lib/featcher";
 
 const EmailGenerator = () => {
-  const { emailResponse, isLoading } = useAppContext();
+  const { isLoading } = useAppContext();
   const { data: session } = useSession();
+
+  const {
+    data: emailResponse,
+    isLoading: isEmailLoading,
+    isError,
+    mutate,
+  } = useFetchData("/api/email-generator/get-email");
 
   useEffect(() => {
     sal();
@@ -28,14 +35,13 @@ const EmailGenerator = () => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [emailResponse]);
+  }, [emailResponse, isEmailLoading]);
 
-  console.log(emailResponse, isLoading);
   return (
     <>
-      {emailResponse?.map((email, index) => (
+      {emailResponse?.emails.map((email, index) => (
         <div className="chat-box-list pt--30" id="chatContainer" key={index}>
-          {email.role === "user" && (
+          {email.prompt && (
             <div className="chat-box author-speech bg-flashlight">
               <div className="inner">
                 <div className="chat-section">
@@ -50,31 +56,12 @@ const EmailGenerator = () => {
                   </div>
                   <div className="chat-content">
                     <h6 className="title">{session?.user.name || "user"}</h6>
-                    <p>{email.content}</p>
+                    <p>{email.prompt}</p>
                   </div>
                 </div>
               </div>
             </div>
           )}
-          {/* <div className="chat-box author-speech bg-flashlight">
-            <div className="inner">
-              <div className="chat-section">
-                <div className="author">
-                  <Image
-                    className="w-100"
-                    width={40}
-                    height={40}
-                    src={session?.user.image || avatar}
-                    alt="Author"
-                  />
-                </div>
-                <div className="chat-content">
-                  <h6 className="title">{data.title}</h6>
-                  <p>{data.desc}</p>
-                </div>
-              </div>
-            </div>
-          </div> */}
 
           {email.role === "assistant" && (
             <div className="chat-box ai-speech bg-flashlight">

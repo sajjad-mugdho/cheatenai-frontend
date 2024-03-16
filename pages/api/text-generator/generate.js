@@ -1,4 +1,7 @@
+import { db } from "@/lib/db";
+import { getServerSession } from "next-auth";
 import OpenAI from "openai";
+import { authOptions } from "../auth/[...nextauth]";
 
 const openai = new OpenAI();
 
@@ -34,10 +37,37 @@ export default async function handler(req, res) {
     const { messages } = req.body;
     console.log(messages);
 
+    const session = await getServerSession(req, res, authOptions);
+
+    console.log(session);
+
+    if (!session) {
+      return res.json({
+        error: "Unauthorized, User is not loged in",
+        status: 403,
+      });
+    }
+
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [prefix, ...messages],
+      max_tokens: 500,
     });
+
+    const aiResponseContent = response.choices[0].message.content;
+    // Save the response to the database using Prisma
+    const savedResponse = await db.Article.create({
+      data: {
+        userId: session.user.id,
+        role: "assistant",
+        content: aiResponseContent,
+        model: "article",
+        prompt: messages.map((message) => message.content).join("\n"),
+        title: "",
+      },
+    });
+
+    console.log(savedResponse);
 
     return res.json({ content: response.choices[0].message.content });
   } catch (error) {

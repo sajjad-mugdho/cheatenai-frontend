@@ -54,6 +54,10 @@ model User {
   Session        Session[]
   Authenticator  Authenticator[]
   OpenAIResponse OpenAIResponse[]
+  Article        Article[]
+  Code           Code[]
+  Email          Email[]
+  Blog           Blog[]
 
   @@map("users")
 }
@@ -84,6 +88,62 @@ model Authenticator {
 
 // Table to store responses from OpenAI API, associated with a user
 model OpenAIResponse {
+  id      String @id @default(cuid()) @map("_id")
+  userId  String @map("user_id")
+  role    String
+  content String
+  model   String
+  prompt  String
+  title   String
+
+  time DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Article {
+  id      String @id @default(cuid()) @map("_id")
+  userId  String @map("user_id")
+  role    String
+  content String
+  model   String
+  prompt  String
+  title   String
+
+  time DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Code {
+  id      String @id @default(cuid()) @map("_id")
+  userId  String @map("user_id")
+  role    String
+  content String
+  model   String
+  prompt  String
+  title   String
+
+  time DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Email {
+  id      String @id @default(cuid()) @map("_id")
+  userId  String @map("user_id")
+  role    String
+  content String
+  model   String
+  prompt  String
+  title   String
+
+  time DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Blog {
   id      String @id @default(cuid()) @map("_id")
   userId  String @map("user_id")
   role    String
