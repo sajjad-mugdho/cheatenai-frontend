@@ -4,6 +4,7 @@ import sal from "sal.js";
 import PricingData from "../../data/home.json";
 import SinglePrice from "./PricingProps/SinglePrice";
 import Compare from "./Compare";
+import { useAppContext } from "@/context/Context";
 
 const PricingTwo = ({
   parentClass,
@@ -13,6 +14,9 @@ const PricingTwo = ({
   isHeading,
   gap,
 }) => {
+  const { handleBlogTest, blogTest } = useAppContext();
+
+  console.log(blogTest);
   useEffect(() => {
     sal();
 
@@ -77,6 +81,7 @@ const PricingTwo = ({
                         role="tab"
                         aria-controls="nav-home"
                         aria-selected="true"
+                        onClick={() => handleBlogTest()}
                       >
                         Monthly
                       </button>

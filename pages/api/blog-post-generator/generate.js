@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]";
+import { db } from "@/lib/db";
 
 const openai = new OpenAI();
 
@@ -50,6 +51,21 @@ export default async function handler(req, res) {
       model: "gpt-3.5-turbo",
       messages: [prefix, ...messages],
     });
+
+    const aiResponseContent = response.choices[0].message.content;
+    // Save the response to the database using Prisma
+    const savedResponse = await db.OpenAIResponse.create({
+      data: {
+        userId: "cltrsotlf00012819z64607j8",
+        role: "assistant",
+        content: aiResponseContent,
+        model: "blog-post",
+        prompt: messages.map((message) => message.content).join("\n"),
+        title: "",
+      },
+    });
+
+    console.log(savedResponse);
 
     return res.json({ content: response.choices[0].message.content });
   } catch (error) {

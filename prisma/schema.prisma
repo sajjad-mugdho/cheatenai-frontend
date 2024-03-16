@@ -50,14 +50,10 @@ model User {
   emailVerified  DateTime?        @map("email_verified")
   password       String?
   image          String?
-  accounts       Account[]
-  sessions       Session[]
+  Account        Account[]
+  Session        Session[]
   Authenticator  Authenticator[]
   OpenAIResponse OpenAIResponse[]
-  Article        Article[]
-  Email          Email[]
-  BlogPost       BlogPost[]
-  CodeSnippet    CodeSnippet[]
 
   @@map("users")
 }
@@ -88,55 +84,15 @@ model Authenticator {
 
 // Table to store responses from OpenAI API, associated with a user
 model OpenAIResponse {
-  id        String   @id @default(cuid()) @map("_id")
-  role      String // "user" or "assistant"
-  content   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  // Add any other fields you might need
-}
+  id      String @id @default(cuid()) @map("_id")
+  userId  String @map("user_id")
+  role    String
+  content String
+  model   String
+  prompt  String
+  title   String
 
-// Table to store articles generated, associated with a user
-model Article {
-  id        String   @id @default(cuid()) @map("_id")
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  // Add any other fields you might need
-}
+  time DateTime @default(now())
 
-// Table to store emails generated, associated with a user
-model Email {
-  id        String   @id @default(cuid()) @map("_id")
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  // Add any other fields you might need
-}
-
-// Table to store blog posts generated, associated with a user
-model BlogPost {
-  id        String   @id @default(cuid()) @map("_id")
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  // Add any other fields you might need
-}
-
-// Table to store code snippets generated, associated with a user
-model CodeSnippet {
-  id        String   @id @default(cuid()) @map("_id")
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  // Add any other fields you might need
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

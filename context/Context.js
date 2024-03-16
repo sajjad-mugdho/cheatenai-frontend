@@ -1,6 +1,10 @@
 import axios from "axios";
-
+import { v4 as uuidv4 } from "uuid";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import {
+  addMessageToConversation,
+  getConversations,
+} from "@/lib/conversationManager";
 
 export const CreateContext = createContext();
 
@@ -44,6 +48,7 @@ const Context = ({ children }) => {
   const handleGenerateText = async (prompt) => {
     try {
       const userMessage = { role: "user", content: prompt };
+
       const newMessages = [...messages, userMessage];
       setIsloading(true);
 
@@ -120,6 +125,51 @@ const Context = ({ children }) => {
     }
   };
 
+  /**
+   * @param {string} message
+   *
+   */
+
+  // const handleBlogPostGeneretor = async (prompt) => {
+  //   try {
+  //     const userMessage = { role: "user", content: prompt };
+  //     setIsloading(true);
+
+  //     // Generate a unique conversation ID if it's a new conversation
+  //     let conversationId;
+  //     const conversations = getConversations();
+  //     if (conversations.length === 0) {
+  //       conversationId = uuidv4();
+  //     } else {
+  //       // Retrieve conversation ID from the last conversation
+  //       conversationId = conversations[conversations.length - 1].conversationId;
+  //     }
+
+  //     const newMessages = [
+  //       ...conversations,
+  //       { ...userMessage, conversationId },
+  //     ];
+
+  //     console.log(newMessages);
+
+  //     const response = await axios.post("/api/blog-post-generator/generate", {
+  //       messages: newMessages,
+  //     });
+
+  //     const aiMessage = {
+  //       role: "assistant",
+  //       ...response.data,
+  //     };
+
+  //     addMessageToConversation(aiMessage);
+
+  //     setBlogPostResponse((current) => [...current, ...conversations]);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setIsloading(false);
+  //   }
+  // };
   return (
     <CreateContext.Provider
       value={{

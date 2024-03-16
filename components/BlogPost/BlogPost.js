@@ -7,9 +7,15 @@ import Reaction from "../Common/Reaction";
 import loading from "../../public/images/icons/loader-one.gif";
 import avatar from "../../public/images/team/avater.png";
 import { useAppContext } from "@/context/Context";
+import { useFetchData } from "@/lib/featcher";
 
 const BlogGeneretor = () => {
-  const { blogPostResponse, isLoading } = useAppContext();
+  const { isLoading } = useAppContext();
+  const {
+    data: blogPostResponse,
+    isError,
+    mutate,
+  } = useFetchData("/api/blog-post-generator/get-post");
 
   useEffect(() => {
     sal();
@@ -29,11 +35,11 @@ const BlogGeneretor = () => {
 
   const { data: session } = useSession();
 
-  console.log(blogPostResponse, session);
+  console.log(blogPostResponse?.blogPosts, session);
 
   return (
     <>
-      {blogPostResponse?.map((message, index) => (
+      {blogPostResponse?.blogPosts.map((message, index) => (
         <div
           className="chat-box-list pt--30"
           id="chatContainer"
@@ -42,7 +48,7 @@ const BlogGeneretor = () => {
           data-sal-delay="100"
           key={index}
         >
-          {message.role === "user" && (
+          {message.prompt && (
             <div className="chat-box author-speech bg-flashlight">
               <div className="inner">
                 <div className="chat-section">
@@ -57,7 +63,7 @@ const BlogGeneretor = () => {
                   </div>
                   <div className="chat-content">
                     <h6 className="title">{session?.user.name || "user"}</h6>
-                    <p>{message.content}</p>
+                    <p>{message.prompt}</p>
                   </div>
                 </div>
               </div>
@@ -70,7 +76,6 @@ const BlogGeneretor = () => {
                 className="inner top-flashlight leftside light-xl"
                 key={index}
               >
-                a
                 <div className="chat-section">
                   <div className="author">
                     <Image

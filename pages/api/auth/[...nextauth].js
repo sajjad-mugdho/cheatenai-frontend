@@ -22,13 +22,13 @@ export const authOptions = {
           throw new Error("Please enter your email and password");
         }
 
-        console.log(credentials.email, credentials.password);
+        // console.log(credentials.email, credentials.password);
 
         const emailExist = await db.User.findUnique({
           where: { email: credentials.email },
         });
 
-        console.log("emailExist", emailExist);
+        // console.log("emailExist", emailExist);
 
         if (!emailExist) {
           throw new Error("Email not found");
@@ -58,19 +58,27 @@ export const authOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, isNewUser }) {
-      console.log("signIn", user, account, profile, isNewUser);
+      // console.log("signIn", user, account, profile, isNewUser);
       return true;
     },
-    async redirect({ url, baseUrl }) {
-      console.log("redirect", url, baseUrl);
-      return baseUrl;
-    },
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl;
+    // },
     async session({ session, user, token }) {
-      console.log("session", session, user, token);
+      if (token) {
+        session.user = {
+          id: user.id, // Use user.id instead of token.id
+          name: user.name,
+          email: user.email,
+          image: user.image,
+        };
+      }
+      // console.log("session callback", session, user, token);
       return session;
     },
+
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log("jwt", token, user, account, profile, isNewUser);
+      // console.log("jwt callback", token, user, account, profile);
       return token;
     },
   },
