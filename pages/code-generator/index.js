@@ -6,9 +6,9 @@ import PopupMobileMenu from "@/components/Header/PopupMobileMenu";
 import LeftpanelDashboard from "@/components/Common/LeftpanelDashboard";
 import RightpanelDashboard from "@/components/Common/RightpanelDashboard";
 import Modal from "@/components/Common/Modal";
-import StaticbarDashboard from "@/components/Common/StaticbarDashboard";
 import CodeGenerator from "@/components/CodeGenerator/CodeGenerator";
 import ProtectedRoute from "@/components/Protected/ProtectedRoute";
+import StaticbarDashboardCode from "@/components/Common/StaticbarDashboardCode";
 
 const CodeGeneratorPage = () => {
   return (
@@ -30,7 +30,7 @@ const CodeGeneratorPage = () => {
                     <div className="content-page">
                       <CodeGenerator />
                     </div>
-                    <StaticbarDashboard />
+                    <StaticbarDashboardCode />
                   </div>
                 </div>
               </div>

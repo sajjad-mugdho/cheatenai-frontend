@@ -1,15 +1,25 @@
 import { db } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).end();
   }
 
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!session) {
+    return res.json({
+      error: "Unauthorized, User is not loged in",
+      status: 403,
+    });
+  }
   try {
     // Retrieve the generated blog posts from the database
     const blogPosts = await db.Blog.findMany({
       where: {
-        userId: "cltrsotlf00012819z64607j8",
+        userId: session.user.id,
         model: "blog-post",
       },
     });

@@ -44,20 +44,21 @@ model Session {
 }
 
 model User {
-  id             String           @id @default(cuid()) @map("_id")
-  name           String?
-  email          String?          @unique
-  emailVerified  DateTime?        @map("email_verified")
-  password       String?
-  image          String?
-  Account        Account[]
-  Session        Session[]
-  Authenticator  Authenticator[]
-  OpenAIResponse OpenAIResponse[]
-  Article        Article[]
-  Code           Code[]
-  Email          Email[]
-  Blog           Blog[]
+  id            String          @id @default(cuid()) @map("_id")
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?       @map("email_verified")
+  password      String?
+  image         String?
+  credits       Int             @default(0)
+  Account       Account[]
+  Session       Session[]
+  Authenticator Authenticator[]
+
+  Article Article[]
+  Code    Code[]
+  Email   Email[]
+  Blog    Blog[]
 
   @@map("users")
 }
@@ -82,21 +83,6 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// Table to store responses from OpenAI API, associated with a user
-model OpenAIResponse {
-  id      String @id @default(cuid()) @map("_id")
-  userId  String @map("user_id")
-  role    String
-  content String
-  model   String
-  prompt  String
-  title   String
-
-  time DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -11,6 +11,7 @@ import { useFetchData } from "@/lib/featcher";
 
 const TextGenerator = () => {
   const { isLoading } = useAppContext();
+  const { data: session } = useSession();
 
   const {
     data: messages,
@@ -34,7 +35,6 @@ const TextGenerator = () => {
     });
   }, [messages, isLoading]);
 
-  const { data: session } = useSession();
   console.log(messages, session);
 
   return (
@@ -102,7 +102,7 @@ const TextGenerator = () => {
             </div>
           )}
 
-          {isLoading && (
+          {isLoading && isArticleLoading && (
             <div className="chat-section generate-section">
               <div className="author">
                 <Image

@@ -15,17 +15,16 @@ export default async function handler(req, res) {
       status: 403,
     });
   }
-
   try {
     // Retrieve the generated blog posts from the database
-    const emails = await db.Email.findMany({
+    const codes = await db.Code.findMany({
       where: {
         userId: session.user.id,
-        model: "email",
+        model: "code",
       },
     });
 
-    return res.json({ emails });
+    return res.json({ codes });
   } catch (error) {
     console.error("Error fetching Blog Posts:", error.message);
     return res.status(500).json({ error: "Internal Server Error" });

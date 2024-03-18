@@ -99,6 +99,32 @@ const Context = ({ children }) => {
     }
   };
 
+  const handleGenerateCode = async (prompt) => {
+    try {
+      const userMessage = { role: "user", content: prompt };
+      const newMessages = [...messages, userMessage];
+      setIsloading(true);
+
+      const response = await axios.post("/api/code-generator/generate", {
+        messages: newMessages,
+      });
+
+      const aiMessage = {
+        role: "assistant",
+        ...response.data,
+      };
+
+      setemailResponse((current) => [...current, userMessage, aiMessage]);
+    } catch (error) {
+      if (error?.response?.status === 403) {
+        setIsloading(false);
+      } else {
+      }
+    } finally {
+      setIsloading(false);
+    }
+  };
+
   const handleBlogPostGeneretor = async (prompt) => {
     try {
       const userMessage = { role: "user", content: prompt };
@@ -170,6 +196,7 @@ const Context = ({ children }) => {
   //     setIsloading(false);
   //   }
   // };
+
   return (
     <CreateContext.Provider
       value={{
@@ -194,6 +221,7 @@ const Context = ({ children }) => {
         emailResponse,
         handleBlogPostGeneretor,
         blogPostResponse,
+        handleGenerateCode,
       }}
     >
       {children}

@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     // Replace images.domains with images.remotePatterns
     // Adjust the pattern to match your desired domains
-    domains: ["lh3.googleusercontent.com"],
+    domains: ["lh3.googleusercontent.com", "platform-lookaside.fbsbx.com"],
   },
 };
 

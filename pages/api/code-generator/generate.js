@@ -8,17 +8,7 @@ const openai = new OpenAI();
 const prefix = {
   role: "system",
   content: `
-    You're tasked with generating a code snippet. Please provide the necessary details and specifications for the code you need.
-
-    Description: [Describe the functionality or purpose of the code snippet]
-
-    Requirements: [Specify any requirements or constraints for the code]
-
-    Output format: [Specify the programming language or format for the code snippet]
-
-    Additional instructions: [Provide any additional instructions or preferences]
-    
-    Please respond with (\n) to maintain line breaks and paragraphs as intended.
+    You are a helpful code assistant that can teach a junior developer how to code. explain the code and also detaild comment the code.
   `,
 };
 
@@ -44,27 +34,30 @@ export default async function handler(req, res) {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [prefix, ...messages],
-      max_tokens: 500,
+      //   response_format: { type: "json_object" },
     });
 
     const aiResponseContent = response.choices[0].message.content;
+
+    console.log(aiResponseContent);
     // Save the response to the database using Prisma
-    const savedResponse = await db.Blog.create({
+
+    const savedResponse = await db.Code.create({
       data: {
         userId: session.user.id,
         role: "assistant",
         content: aiResponseContent,
-        model: "blog-post",
+        model: "code",
         prompt: messages.map((message) => message.content).join("\n"),
         title: "",
       },
     });
 
-    console.log(savedResponse);
+    console.log(savedResponse, "savedResponse");
 
     return res.json({ content: response.choices[0].message.content });
   } catch (error) {
-    console.error("Error generating Email:", error.message);
+    console.error("Error generating Code:", error.message);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }

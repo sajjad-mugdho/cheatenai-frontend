@@ -14,9 +14,6 @@ const PricingTwo = ({
   isHeading,
   gap,
 }) => {
-  const { handleBlogTest, blogTest } = useAppContext();
-
-  console.log(blogTest);
   useEffect(() => {
     sal();
 
@@ -81,7 +78,6 @@ const PricingTwo = ({
                         role="tab"
                         aria-controls="nav-home"
                         aria-selected="true"
-                        onClick={() => handleBlogTest()}
                       >
                         Monthly
                       </button>
