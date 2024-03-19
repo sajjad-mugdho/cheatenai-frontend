@@ -14,6 +14,7 @@ import PageHead from "@/pages/Head";
 const UserAuth = () => {
   const { toggleAuth, setToggleAuth } = useAppContext();
   const [isLoading, setisLoading] = useState(false);
+  const session = useSession();
 
   useEffect(() => {
     sal();
@@ -31,7 +32,7 @@ const UserAuth = () => {
     });
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     setisLoading(true);
     e.preventDefault();
     const form = e.target;
@@ -39,16 +40,16 @@ const UserAuth = () => {
     const password = form.password.value;
     console.log(email, password);
 
-    signIn("credentials", { email, password }, { redirect: false });
+    await signIn("credentials", { email, password, redirect: false });
     setisLoading(false);
   };
 
-  const handleGoogleLogin = () => {
-    signIn("google");
+  const handleGoogleLogin = async () => {
+    await signIn("google");
   };
 
-  const handleFacebookLigin = () => {
-    signIn("facebook");
+  const handleFacebookLigin = async () => {
+    await signIn("facebook");
   };
 
   const handleSignup = async (e) => {

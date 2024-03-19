@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import sal from "sal.js";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 import Reaction from "../Common/Reaction";
 import loading from "../../public/images/icons/loader-one.gif";
-import avatar from "../../public/images/team/avater.png";
+
+import Avater from "../../public/images/team/avater-g.png";
 import { useAppContext } from "@/context/Context";
 import { useFetchData } from "@/lib/featcher";
 
 const TextGenerator = () => {
   const { isLoading } = useAppContext();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const {
     data: messages,
@@ -35,7 +36,7 @@ const TextGenerator = () => {
     });
   }, [messages, isLoading]);
 
-  console.log(messages, session);
+  console.log(messages, status);
 
   return (
     <>
@@ -57,20 +58,20 @@ const TextGenerator = () => {
                       className="w-100"
                       width={40}
                       height={40}
-                      src={session?.user?.image || avatar}
+                      src={session?.user?.image || Avater}
                       alt="Author"
                     />
                   </div>
                   <div className="chat-content">
                     <h6 className="title">{session?.user.name || "user"}</h6>
-                    <p>{message.prompt}</p>
+                    <p>{message?.prompt}</p>
                   </div>
                 </div>
               </div>
             </div>
           )}
 
-          {message.role === "assistant" && (
+          {message?.role === "assistant" && (
             <div className="chat-box ai-speech bg-flashlight">
               <div
                 className="inner top-flashlight leftside light-xl"
@@ -92,7 +93,7 @@ const TextGenerator = () => {
                       <span className="rainbow-badge-card">Bot</span>
                     </h6>
 
-                    {message.content.split("\n").map((line, lineIndex) => (
+                    {message?.content.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex}>{line}</p>
                     ))}
                     <Reaction />
