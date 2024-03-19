@@ -44,11 +44,13 @@ const UserAuth = () => {
     setisLoading(false);
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
     await signIn("google");
   };
 
-  const handleFacebookLigin = async () => {
+  const handleFacebookLigin = async (e) => {
+    e.preventDefault();
     await signIn("facebook");
   };
 
