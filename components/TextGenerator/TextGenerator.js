@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import sal from "sal.js";
-import Image from "next/image";
+
 import { useSession } from "next-auth/react";
 
 import Reaction from "../Common/Reaction";
@@ -9,17 +9,18 @@ import loading from "../../public/images/icons/loader-one.gif";
 import Avater from "../../public/images/team/avater-g.png";
 import { useAppContext } from "@/context/Context";
 import { useFetchData } from "@/lib/featcher";
+import Image from "next/image";
 
 const TextGenerator = () => {
   const { isLoading } = useAppContext();
   const { data: session, status } = useSession();
 
-  const {
-    data: messages,
-    isLoading: isArticleLoading,
-    isError,
-    mutate,
-  } = useFetchData("/api/text-generator/get-article");
+  const generateAvatarInitials = (name) => {
+    return name ? name.charAt(0).toUpperCase() : "";
+  };
+  const { data: messages, isLoading: isArticleLoading } = useFetchData(
+    "/api/text-generator/get-article"
+  );
   useEffect(() => {
     sal();
 
@@ -38,6 +39,8 @@ const TextGenerator = () => {
 
   console.log(messages, status);
 
+  const avatarInitials = generateAvatarInitials(session?.user?.name);
+
   return (
     <>
       {messages?.articles.map((message, index) => (
@@ -54,13 +57,23 @@ const TextGenerator = () => {
               <div className="inner">
                 <div className="chat-section">
                   <div className="author">
-                    <Image
-                      className="w-100"
-                      width={40}
-                      height={40}
-                      src={session?.user?.image || Avater}
-                      alt="Author"
-                    />
+                    {session?.user?.image === null ? (
+                      <Image
+                        className="w-100"
+                        width={40}
+                        height={40}
+                        src={Avater}
+                        alt="Author"
+                      />
+                    ) : (
+                      <Image
+                        className="w-100"
+                        width={40}
+                        height={40}
+                        src={session?.user?.image || Avater}
+                        alt="Author"
+                      />
+                    )}
                   </div>
                   <div className="chat-content">
                     <h6 className="title">{session?.user.name || "user"}</h6>
@@ -81,7 +94,7 @@ const TextGenerator = () => {
                   <div className="author">
                     <Image
                       className="w-100"
-                      src={avatar}
+                      src={Avater}
                       width={40}
                       height={40}
                       alt="ChatenAI"

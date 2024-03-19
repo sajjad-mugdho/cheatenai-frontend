@@ -63,32 +63,26 @@ export const authOptions = {
 
   callbacks: {
     async signIn({ user, account, profile, isNewUser, credentials }) {
-      console.log("signIn", credentials);
       return true;
     },
     async redirect({ url, baseUrl }) {
       return baseUrl;
     },
     async session({ session, user, token }) {
-      if (user) {
+      if (token) {
         session.user = {
           ...session.user,
-          id: user.id,
+          id: token.sub,
 
-          name: user.name,
-          email: user.email,
-
-          emailVerified: user.emailVerified || false,
+          emailVerified: token.emailVerified || false,
         };
       }
 
-      console.log(session, token, user);
-
+      console.log(token, user);
       return session;
     },
 
     async jwt({ token, user, account, profile, isNewUser }) {
-      console.log("jwt callback", token, user, account, profile);
       return token;
     },
   },

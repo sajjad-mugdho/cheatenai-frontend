@@ -16,6 +16,7 @@ export default async function handler(req, res) {
     });
   }
 
+  console.log("Session:", session);
   try {
     // Retrieve the generated blog posts from the database
     const articles = await db.Article.findMany({
