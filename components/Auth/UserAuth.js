@@ -61,7 +61,7 @@ const UserAuth = () => {
     const password = form.password.value;
     console.log(name, email, password);
     try {
-      const response = await axios.post("/api/auth/signup", {
+      const response = await axios.post("/api/signup/signup", {
         name,
         email,
         password,
