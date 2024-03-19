@@ -78,7 +78,6 @@ export const authOptions = {
         };
       }
 
-      console.log(token, user);
       return session;
     },
 

@@ -32,14 +32,14 @@ export default async function handler(req, res) {
     });
 
     // Send a successful response with user data (optional)
-    res.status(201).json({ success: "User created", user: newUser });
+    res.json({ success: "User created", user: newUser });
   } catch (error) {
     console.error(error);
 
     // Handle specific errors (optional)
     // For example, you could handle database errors differently
 
-    res.status(500).json({ error: "Internal server error" });
+    res.json({ error: "Internal server error" });
   } finally {
     // Close Prisma connection (optional, handled automatically in v2+)
   }
