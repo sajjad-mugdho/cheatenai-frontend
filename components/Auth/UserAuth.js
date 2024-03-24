@@ -38,20 +38,17 @@ const UserAuth = () => {
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
 
     await signIn("credentials", { email, password, redirect: false });
     setisLoading(false);
   };
 
-  const handleGoogleLogin = async (e) => {
-    e.preventDefault();
-    await signIn("google");
+  const handleGoogleLogin = (e) => {
+    signIn("google");
   };
 
   const handleFacebookLigin = async (e) => {
-    e.preventDefault();
-    await signIn("facebook");
+    signIn("facebook");
   };
 
   const handleSignup = async (e) => {

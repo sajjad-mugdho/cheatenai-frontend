@@ -15,12 +15,10 @@ const TextGenerator = () => {
   const { isLoading } = useAppContext();
   const { data: session, status } = useSession();
 
-  const generateAvatarInitials = (name) => {
-    return name ? name.charAt(0).toUpperCase() : "";
-  };
   const { data: messages, isLoading: isArticleLoading } = useFetchData(
     "/api/text-generator/get-article"
   );
+
   useEffect(() => {
     sal();
 
@@ -37,9 +35,7 @@ const TextGenerator = () => {
     });
   }, [messages, isLoading]);
 
-  console.log(messages, status);
-
-  const avatarInitials = generateAvatarInitials(session?.user?.name);
+  console.log(messages);
 
   return (
     <>
@@ -116,7 +112,7 @@ const TextGenerator = () => {
             </div>
           )}
 
-          {isLoading && isArticleLoading && (
+          {isLoading && (
             <div className="chat-section generate-section">
               <div className="author">
                 <Image

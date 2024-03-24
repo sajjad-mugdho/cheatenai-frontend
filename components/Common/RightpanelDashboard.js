@@ -37,7 +37,7 @@ const RightpanelDashboard = () => {
             <span>New Chat</span>
           </a>
         </div>
-        {/* <div className="right-side-bottom">
+        <div className="right-side-bottom">
           <div className="small-search search-section mb--20">
             <input type="search" placeholder="Search Here..." />
             <i className="feather-search"></i>
@@ -134,7 +134,7 @@ const RightpanelDashboard = () => {
               Show More
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

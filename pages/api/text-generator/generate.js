@@ -38,6 +38,7 @@ export default async function handler(req, res) {
 
     const session = await getServerSession(req, res, authOptions);
 
+    console.log(messages);
     if (!session) {
       return res.json({
         error: "Unauthorized, User is not loged in",
@@ -50,6 +51,8 @@ export default async function handler(req, res) {
       messages: [prefix, ...messages],
       max_tokens: 500,
     });
+
+    console.log(response);
 
     const aiResponseContent = response.choices[0].message.content;
     // Save the response to the database using Prisma

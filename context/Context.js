@@ -47,10 +47,10 @@ const Context = ({ children }) => {
   // Text Generator
   const handleGenerateText = async (prompt) => {
     try {
+      setIsloading(true);
       const userMessage = { role: "user", content: prompt };
 
       const newMessages = [...messages, userMessage];
-      setIsloading(true);
 
       const response = await axios.post("/api/text-generator/generate", {
         messages: newMessages,
@@ -60,7 +60,10 @@ const Context = ({ children }) => {
         role: "assistant",
         ...response.data,
       };
+
       setMessages((current) => [...current, userMessage, aiMessage]);
+
+      setIsloading(false);
     } catch (error) {
       if (error?.response?.status === 403) {
         setIsloading(false);
