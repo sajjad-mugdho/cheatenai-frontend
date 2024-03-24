@@ -142,3 +142,30 @@ model Blog {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Notification {
+  id             String   @id @default(uuid()) @map("_id")
+  userId         String   @map("user_id")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  replyCode      String
+  replyDesc      String
+  transID        String
+  transDate      DateTime
+  transAmount    Float
+  transCurrency  String
+  transOrder     String
+  merchantID     String
+  clientFullName String?
+  clientPhone    String?
+  clientEmail    String?
+  paymentDetails String?
+  transType      String?
+  debitCompany   String?
+  binCountry     String?
+  pm             String?
+  storageID      String?
+  expMonth       String?
+  expYear        String?
+  signature      String
+}

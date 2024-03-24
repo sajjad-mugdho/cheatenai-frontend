@@ -23,6 +23,7 @@ export default async function handler(req, res) {
       const notificationURL = process.env.NETSELLER_NOTIFICATION_URL;
       const order = "mewmewmew";
 
+      // Concatenate parameters for signature
       const concatenatedString =
         companyNum +
         transType +
@@ -30,18 +31,23 @@ export default async function handler(req, res) {
         amount +
         currencyCode +
         cardNum +
-        "AU7E468HNF"; // Assuming PersonalHashKey is a constant value
+        "AU7E468HNF";
+
+      // Generate SHA256 hash of concatenated string
       const sha256Hash = createHash("sha256")
         .update(concatenatedString)
         .digest("base64");
 
-      console.log("sha256Hash:", sha256Hash);
+      // URL encode the signature
       const signature = encodeURIComponent(sha256Hash);
-      console.log(signature + " " + concatenatedString);
+      console.log(signature + "signature");
 
+      // Construct the full URL with encoded signature
       const fullURL = `${paymentUrl}?CompanyNum=${companyNum}&TransType=${transType}&CardNum=${cardNum}&ExpMonth=${expMonth}&ExpYear=${expYear}&Member=${member}&TypeCredit=${typeCredit}&Amount=${amount}&Currency=${currencyCode}&CVV2=${cvv2}&Email=${email}&PhoneNumber=${mobileNo}&notification_url=${notificationURL}&Order=${order}&Signature=${signature}&Value=1`;
 
       console.log("fullURL:", fullURL);
+
+      // Make the POST request to the payment gateway
       const response = await axios.post(fullURL);
 
       const responseData = response.data;

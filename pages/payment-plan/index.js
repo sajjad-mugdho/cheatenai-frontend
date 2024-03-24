@@ -7,6 +7,7 @@ import LeftpanelDashboard from "@/components/Common/LeftpanelDashboard";
 import PlansBilling from "@/components/PlansBilling/PlansBilling";
 import ProtectedRoute from "@/components/Protected/ProtectedRoute";
 import axios from "axios";
+import PaymentDetails from "@/components/payment/PaymentDetailsForm";
 
 const PlansBillingPage = () => {
   const handleSubmit = async (e) => {
@@ -71,6 +72,7 @@ const PlansBillingPage = () => {
                 <button type="submit">Submit Payment</button>
               </form>
             </div>
+            <PaymentDetails />
           </Context>
         </main>
       </ProtectedRoute>
