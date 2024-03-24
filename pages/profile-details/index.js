@@ -4,8 +4,9 @@ import Context from "@/context/Context";
 import HeaderDashboard from "@/components/Header/HeaderDashboard";
 import PopupMobileMenu from "@/components/Header/PopupMobileMenu";
 import LeftpanelDashboard from "@/components/Common/LeftpanelDashboard";
-import ProfileDetails from "@/components/ProfileDetails/ProfileDetails";
+
 import ProtectedRoute from "@/components/Protected/ProtectedRoute";
+import ProfileDetails from "@/components/ProfileDetails/ProfileDetails";
 
 const ProfileDetailsPage = () => {
   return (

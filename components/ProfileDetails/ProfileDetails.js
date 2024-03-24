@@ -1,7 +1,6 @@
 import React from "react";
-
-import ProfileBody from "./ProfileBody";
 import UserNav from "../Common/UserNav";
+import ProfileBody from "./ProfileBody";
 
 const ProfileDetails = () => {
   return (
