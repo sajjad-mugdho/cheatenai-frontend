@@ -1026,12 +1026,15 @@ const Compare = () => {
                       </Link>
                     </td>
                     <td>
-                      <Link className="btn-default btn-border" href="#">
+                      <Link
+                        className="btn-default btn-border"
+                        href="/payment-plan"
+                      >
                         Get started
                       </Link>
                     </td>
                     <td>
-                      <Link className="btn-default" href="#">
+                      <Link className="btn-default" href="/payment-plan">
                         Get started
                       </Link>
                     </td>

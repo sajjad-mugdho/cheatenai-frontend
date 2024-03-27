@@ -30,12 +30,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { messages } = req.body;
-    console.log(messages);
+    const { messages, conversationId } = req.body;
 
     const session = await getServerSession(req, res, authOptions);
-
-    console.log(session);
 
     if (!session) {
       return res.json({

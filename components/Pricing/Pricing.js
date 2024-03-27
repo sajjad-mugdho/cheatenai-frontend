@@ -95,7 +95,7 @@ const Pricing = () => {
                             className={`btn-default ${
                               !data.isActive ? "btn-border" : ""
                             }`}
-                            href="#"
+                            href="/payment-plan"
                           >
                             Purchase Now
                           </Link>

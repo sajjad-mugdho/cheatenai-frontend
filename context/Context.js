@@ -1,10 +1,6 @@
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
+
 import React, { createContext, useContext, useState, useEffect } from "react";
-import {
-  addMessageToConversation,
-  getConversations,
-} from "@/lib/conversationManager";
 
 export const CreateContext = createContext();
 
@@ -45,7 +41,7 @@ const Context = ({ children }) => {
   const shouldCollapseRightbar = !rightBar;
 
   // Text Generator
-  const handleGenerateText = async (prompt) => {
+  const handleGenerateText = async (prompt, conversationId) => {
     try {
       setIsloading(true);
       const userMessage = { role: "user", content: prompt };
@@ -54,6 +50,7 @@ const Context = ({ children }) => {
 
       const response = await axios.post("/api/text-generator/generate", {
         messages: newMessages,
+        conversationId,
       });
 
       const aiMessage = {
@@ -76,7 +73,7 @@ const Context = ({ children }) => {
 
   // Email Generator
 
-  const handleGenerateEmail = async (prompt) => {
+  const handleGenerateEmail = async (prompt, conversationId) => {
     try {
       const userMessage = { role: "user", content: prompt };
       const newMessages = [...messages, userMessage];
@@ -84,6 +81,7 @@ const Context = ({ children }) => {
 
       const response = await axios.post("/api/email-generator/generate", {
         messages: newMessages,
+        conversationId,
       });
 
       const aiMessage = {
@@ -102,7 +100,7 @@ const Context = ({ children }) => {
     }
   };
 
-  const handleGenerateCode = async (prompt) => {
+  const handleGenerateCode = async (prompt, conversationId) => {
     try {
       const userMessage = { role: "user", content: prompt };
       const newMessages = [...messages, userMessage];
@@ -110,6 +108,7 @@ const Context = ({ children }) => {
 
       const response = await axios.post("/api/code-generator/generate", {
         messages: newMessages,
+        conversationId,
       });
 
       const aiMessage = {
@@ -128,7 +127,7 @@ const Context = ({ children }) => {
     }
   };
 
-  const handleBlogPostGeneretor = async (prompt) => {
+  const handleBlogPostGeneretor = async (prompt, conversationId) => {
     try {
       const userMessage = { role: "user", content: prompt };
       const newMessages = [...messages, userMessage];
@@ -136,6 +135,7 @@ const Context = ({ children }) => {
 
       const response = await axios.post("/api/blog-post-generator/generate", {
         messages: newMessages,
+        conversationId,
       });
 
       const aiMessage = {

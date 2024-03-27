@@ -9,14 +9,22 @@ import { useSession } from "next-auth/react";
 
 import HeaderData from "../../data/header.json";
 import { useAppContext } from "@/context/Context";
+import { getUser } from "@/lib/getUser";
+import { useEffect, useState } from "react";
 
 const LeftpanelDashboard = () => {
   const router = useRouter();
   const { shouldCollapseLeftbar } = useAppContext();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    getUser().then((data) => setUser(data));
+  }, []);
 
   const isActive = (href) => router.pathname === href;
 
   const { data: session } = useSession();
+
   return (
     <>
       <div
@@ -154,22 +162,20 @@ const LeftpanelDashboard = () => {
                 <div className="author-badge">Free</div>
               </Link>
               <div className="btn-part">
-                <Link href="/pricing" className="btn-default btn-border">
-                  Upgrade To Pro
-                </Link>
+                {user?.user.credits ? (
+                  <>
+                    <button className="btn-default btn-border">
+                      {user?.user.credits} Words Remaining
+                    </button>
+                  </>
+                ) : (
+                  <Link href="/pricing" className="btn-default btn-border">
+                    Upgrade To Pro
+                  </Link>
+                )}
               </div>
             </div>
           </div>
-          <p className="subscription-copyright copyright-text text-center b4  small-text">
-            © 2024
-            <Link
-              className="ps-2"
-              href="https://themeforest.net/user/rainbow-themes/portfolio"
-            >
-              Rainbow Themes
-            </Link>
-            .
-          </p>
         </div>
       </div>
     </>

@@ -3,65 +3,261 @@ import Link from "next/link";
 
 import ToolsData from "../../data/header.json";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import axios from "axios";
 
 const Items = () => {
-  const router = useRouter(); // Initialize the useRouter hook
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleClick = (event, link) => {
-    event.preventDefault();
-    router.push(link).then(() => router.reload()); // Push the new link and reload the page
+  const handleAricleNewChat = async (e) => {
+    setLoading(true);
+    try {
+      e.preventDefault();
+      const response = await axios.post("/api/conversation/create");
+      const conversationId = response.data.conversation.id;
+
+      router
+        .push(`/text-generator/${conversationId}`)
+        .then(() => router.reload());
+    } catch (error) {
+      console.error("Error creating new chat:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCodeNewChat = async (e) => {
+    setLoading(true);
+    try {
+      e.preventDefault();
+      const response = await axios.post("/api/conversation/create");
+      const conversationId = response.data.conversation.id;
+
+      router
+        .push(`/code-generator/${conversationId}`)
+        .then(() => router.reload());
+    } catch (error) {
+      console.error("Error creating new chat:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleEmailNewChat = async (e) => {
+    setLoading(true);
+    try {
+      e.preventDefault();
+      const response = await axios.post("/api/conversation/create");
+      const conversationId = response.data.conversation.id;
+
+      router
+        .push(`/email-generator/${conversationId}`)
+        .then(() => router.reload());
+    } catch (error) {
+      console.error("Error creating new chat:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleBlogNewChat = async (e) => {
+    setLoading(true);
+    try {
+      e.preventDefault();
+      const response = await axios.post("/api/conversation/create");
+      const conversationId = response.data.conversation.id;
+
+      router
+        .push(`/blog-post-generate/${conversationId}`)
+        .then(() => router.reload());
+    } catch (error) {
+      console.error("Error creating new chat:", error);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <>
-      {ToolsData &&
-        ToolsData.leftPanel.map((data, index) => (
-          <li key={index}>
-            <Link
-              href={data.link}
-              className={`genarator-card ${
-                data.badge === "Coming" ? "disabled" : ""
-              }`}
-              onClick={(e) => handleClick(e, data.link)}
-            >
-              <div className="inner">
-                <div className="left-align">
-                  <div className="img-bar">
-                    <Image
-                      src={data.img}
-                      width={50}
-                      height={50}
-                      alt="AI Generator"
-                    />
-                  </div>
-                  <h5 className="title">{data.title}</h5>
-                </div>
-                <div className="right-align">
-                  {data.badge !== "" ? (
-                    <span className="rainbow-badge-card">{data.badge}</span>
-                  ) : (
-                    <div className="icon-bar">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="feather feather-arrow-right __web-inspector-hide-shortcut__"
-                      >
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
-                    </div>
-                  )}
-                </div>
+      <li>
+        <Link
+          href={"/text-generator/new"}
+          className={`genarator-card `}
+          onClick={handleAricleNewChat}
+        >
+          <div className="inner">
+            <div className="left-align">
+              <div className="img-bar">
+                <Image
+                  src={"/images/generator-icon/text.png"}
+                  width={50}
+                  height={50}
+                  alt="AI Generator"
+                />
               </div>
-            </Link>
-          </li>
-        ))}
+              <h5 className="title">Article Generator</h5>
+            </div>
+            <div className="right-align">
+              {loading !== "" ? (
+                <span className="rainbow-badge-card"></span>
+              ) : (
+                <div className="icon-bar">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-arrow-right __web-inspector-hide-shortcut__"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              )}
+            </div>
+          </div>
+        </Link>
+      </li>
+      {/* code generator */}
+      <li>
+        <Link
+          href={"/text-generator/new"}
+          className={`genarator-card `}
+          onClick={handleCodeNewChat}
+        >
+          <div className="inner">
+            <div className="left-align">
+              <div className="img-bar">
+                <Image
+                  src={"/images/generator-icon/code-editor.png"}
+                  width={50}
+                  height={50}
+                  alt="AI Generator"
+                />
+              </div>
+              <h5 className="title">Code Generator</h5>
+            </div>
+            <div className="right-align">
+              {loading !== "" ? (
+                <span className="rainbow-badge-card"></span>
+              ) : (
+                <div className="icon-bar">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-arrow-right __web-inspector-hide-shortcut__"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              )}
+            </div>
+          </div>
+        </Link>
+      </li>
+      {/* email */}
+      <li>
+        <Link
+          href={"#"}
+          className={`genarator-card `}
+          onClick={handleEmailNewChat}
+        >
+          <div className="inner">
+            <div className="left-align">
+              <div className="img-bar">
+                <Image
+                  src={"/images/generator-icon/email.png"}
+                  width={50}
+                  height={50}
+                  alt="AI Generator"
+                />
+              </div>
+              <h5 className="title">Email Writer</h5>
+            </div>
+            <div className="right-align">
+              {loading !== "" ? (
+                <span className="rainbow-badge-card"></span>
+              ) : (
+                <div className="icon-bar">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-arrow-right __web-inspector-hide-shortcut__"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              )}
+            </div>
+          </div>
+        </Link>
+      </li>
+
+      {/* blog */}
+
+      <li>
+        <Link
+          href={"#"}
+          className={`genarator-card `}
+          onClick={handleBlogNewChat}
+        >
+          <div className="inner">
+            <div className="left-align">
+              <div className="img-bar">
+                <Image
+                  src={"/images/generator-icon/document.png"}
+                  width={50}
+                  height={50}
+                  alt="AI Generator"
+                />
+              </div>
+              <h5 className="title">Blog Post</h5>
+            </div>
+            <div className="right-align">
+              {loading !== "" ? (
+                <span className="rainbow-badge-card"></span>
+              ) : (
+                <div className="icon-bar">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="feather feather-arrow-right __web-inspector-hide-shortcut__"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              )}
+            </div>
+          </div>
+        </Link>
+      </li>
     </>
   );
 };

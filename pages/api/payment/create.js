@@ -1,8 +1,12 @@
 import { createHash } from "crypto";
 import axios from "axios";
+import { db } from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
+    const session = await getServerSession(req, res, authOptions);
     try {
       const {
         cardNum,
@@ -11,6 +15,7 @@ export default async function handler(req, res) {
         member,
         amount,
         cvv2,
+        address,
         email,
         mobileNo,
       } = req.body;
@@ -54,7 +59,60 @@ export default async function handler(req, res) {
 
       console.log("Response:", responseData);
 
-      res.status(response.status).json({ responseData });
+      // Make the POST request to the payment gateway
+
+      // Parse the response
+      const data = {};
+      responseData.split("&").forEach((pair) => {
+        const [key, value] = pair.split("=");
+        data[key] = value;
+      });
+
+      // Save the extracted data into your database (modify as per your database schema)
+      console.log("Saving data to the database:", data);
+
+      if (data.ReplyDesc === "SUCCESS") {
+        await db.payment.create({
+          data: {
+            userId: session.user.id,
+            transType: data.TransType,
+            reply: data.Replay,
+            transID: data.TransID,
+            date: data.Date,
+            order: data.Order,
+            address,
+            amount: data.Amount,
+            payments: data.Payments,
+            currency: data.Currency,
+            confirmationNum: data.ConfirmationNum,
+            comment: data.Comment,
+            replyDesc: data.ReplyDesc,
+            ccType: data.CCType,
+            descriptor: data.Descriptor,
+            recurringSeries: data.RecurringSeries,
+            last4: data.Last4,
+            ccStorageID: data.ccStorageID,
+            source: data.Source,
+            walletID: data.WalletID,
+            signType: data.signType,
+            signature: data.signature,
+          },
+          include: {
+            user: true,
+          },
+        });
+
+        await db.user.update({
+          where: { id: session.user.id },
+          data: {
+            credits: 10000,
+          },
+        });
+      } else {
+        res.status(response.status).json({ ERROR: data.ReplyDesc });
+      }
+
+      res.status(response.status).json({ data });
     } catch (error) {
       console.error("Error in Payment:", error);
       res.status(500).json({ error: "Internal Server Error" });

@@ -34,7 +34,9 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { messages } = req.body;
+    const { messages, conversationId } = req.body;
+
+    console.log(conversationId, "conversationId");
 
     const session = await getServerSession(req, res, authOptions);
 
@@ -52,8 +54,6 @@ export default async function handler(req, res) {
       max_tokens: 500,
     });
 
-    console.log(response);
-
     const aiResponseContent = response.choices[0].message.content;
     // Save the response to the database using Prisma
     const savedResponse = await db.Article.create({
@@ -64,10 +64,22 @@ export default async function handler(req, res) {
         model: "article",
         prompt: messages.map((message) => message.content).join("\n"),
         title: "",
+        conversationId,
       },
     });
 
-    console.log(savedResponse);
+    if (aiResponseContent) {
+      await db.User.update({
+        where: {
+          id: session.user.id,
+        },
+        data: {
+          credits: {
+            decrement: 500,
+          },
+        },
+      });
+    }
 
     return res.json({ content: response.choices[0].message.content });
   } catch (error) {

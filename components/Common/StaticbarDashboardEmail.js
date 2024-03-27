@@ -3,7 +3,7 @@ import { on } from "events";
 import React from "react";
 import { Tooltip } from "react-tooltip";
 
-const StaticbarDashboardEmail = () => {
+const StaticbarDashboardEmail = ({ conversationId }) => {
   const { handleGenerateEmail, isLoading } = useAppContext();
   const submitPrompt = async (e) => {
     e.preventDefault();
@@ -11,7 +11,7 @@ const StaticbarDashboardEmail = () => {
     const form = e.target;
     const prompt = form.prompt.value;
     form.reset();
-    await handleGenerateEmail(prompt);
+    await handleGenerateEmail(prompt, conversationId);
   };
 
   return (

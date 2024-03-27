@@ -31,9 +31,9 @@ const PaymentDetails = () => {
     <>
       <div className="rbt-main-content">
         <div className="rbt-daynamic-page-content center-width">
-          <div className="rbt-dashboard-content">
+          <div className="rbt-dashboard-content m-5">
             <div className="content-page">
-              <div className="chat-box-list">
+              <div className="chat-box-list ">
                 <PaymentForm />
               </div>
             </div>

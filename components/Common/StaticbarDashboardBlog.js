@@ -3,7 +3,7 @@ import { on } from "events";
 import React from "react";
 import { Tooltip } from "react-tooltip";
 
-const StaticbarDashboardBlog = () => {
+const StaticbarDashboardBlog = ({ conversationId }) => {
   const { handleBlogPostGeneretor, isLoading } = useAppContext();
 
   const submitPrompt = async (e) => {
@@ -12,7 +12,7 @@ const StaticbarDashboardBlog = () => {
     const form = e.target;
     const prompt = form.prompt.value;
     form.reset();
-    await handleBlogPostGeneretor(prompt);
+    await handleBlogPostGeneretor(prompt, conversationId);
   };
 
   return (

@@ -16,6 +16,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import "../public/scss/style.scss";
 import Loading from "@/components/Loading/Loading";
 import Context from "@/context/Context";
+import { Toaster } from "react-hot-toast";
 
 export default function App({
   Component,
@@ -48,6 +49,7 @@ export default function App({
         <Context>
           <SessionProvider session={session}>
             <Component {...pageProps} />
+            <Toaster />
           </SessionProvider>
         </Context>
       )}

@@ -89,7 +89,7 @@ const SinglePrice = ({ data, incresePrice, parentClass }) => {
                       ? "btn-default btn-border"
                       : "btn-default"
                   }`}
-                  href="#"
+                  href="/payment-plan"
                 >
                   Purchase Now
                 </Link>

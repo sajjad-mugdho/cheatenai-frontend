@@ -2,7 +2,7 @@ import { useAppContext } from "@/context/Context";
 import React from "react";
 import { Tooltip } from "react-tooltip";
 
-const StaticbarDashboardCode = () => {
+const StaticbarDashboardCode = ({ conversationId }) => {
   const { handleGenerateCode, isLoading } = useAppContext();
 
   const submitPrompt = async (e) => {
@@ -11,7 +11,7 @@ const StaticbarDashboardCode = () => {
     const form = e.target;
     const prompt = form.prompt.value;
     form.reset();
-    await handleGenerateCode(prompt);
+    await handleGenerateCode(prompt, conversationId);
   };
 
   return (

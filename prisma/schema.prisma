@@ -55,12 +55,29 @@ model User {
   Session       Session[]
   Authenticator Authenticator[]
 
-  Article Article[]
-  Code    Code[]
-  Email   Email[]
-  Blog    Blog[]
+  Article      Article[]
+  Code         Code[]
+  Email        Email[]
+  Blog         Blog[]
+  Payment      Payment[]
+  Conversation Conversation[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
 
   @@map("users")
+}
+
+model Conversation {
+  id        String    @id @default(cuid()) @map("_id")
+  userId    String    @map("user_id")
+  title     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Article   Article[]
+  Code      Code[]
+  Email     Email[]
+  Blog      Blog[]
 }
 
 model VerificationToken {
@@ -88,15 +105,18 @@ model Authenticator {
 }
 
 model Article {
-  id      String @id @default(cuid()) @map("_id")
-  userId  String @map("user_id")
-  role    String
-  content String
-  model   String
-  prompt  String
-  title   String
+  id             String       @id @default(cuid()) @map("_id")
+  userId         String       @map("user_id")
+  role           String
+  content        String
+  model          String
+  prompt         String
+  title          String
+  conversationId String       @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  time DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -110,9 +130,12 @@ model Code {
   prompt  String
   title   String
 
-  time DateTime @default(now())
+  conversationId String       @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Email {
@@ -124,9 +147,12 @@ model Email {
   prompt  String
   title   String
 
-  time DateTime @default(now())
+  conversationId String       @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Blog {
@@ -138,9 +164,41 @@ model Blog {
   prompt  String
   title   String
 
-  time DateTime @default(now())
+  conversationId String       @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id              String   @id @default(uuid()) @map("_id")
+  userId          String   @map("user_id")
+  transType       String?
+  reply           String?
+  transID         String?
+  date            String?
+  order           String?
+  amount          String?
+  address         String?
+  payments        String?
+  currency        String?
+  confirmationNum String?
+  comment         String?
+  replyDesc       String?
+  ccType          String?
+  descriptor      String?
+  recurringSeries String?
+  last4           String?
+  ccStorageID     String?
+  source          String?
+  walletID        String?
+  signType        String?
+  signature       String?
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Notification {

@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { messages } = req.body;
+    const { messages, conversationId } = req.body;
 
     const session = await getServerSession(req, res, authOptions);
 
@@ -57,6 +57,7 @@ export default async function handler(req, res) {
         model: "blog-post",
         prompt: messages.map((message) => message.content).join("\n"),
         title: "",
+        conversationId,
       },
     });
 

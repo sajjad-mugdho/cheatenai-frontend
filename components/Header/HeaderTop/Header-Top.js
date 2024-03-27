@@ -21,7 +21,7 @@ const HeaderTop = () => {
                     </span>
                   </div>
                   <div className="right-button">
-                    <Link className="btn-read-more" href="#">
+                    <Link className="btn-read-more" href="/payment-plan">
                       <span>
                         Purchase Now <i className="feather-arrow-right"></i>
                       </span>
