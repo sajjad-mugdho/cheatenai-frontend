@@ -56,6 +56,7 @@ export default async function handler(req, res) {
         model: "email",
         prompt: messages.map((message) => message.content).join("\n"),
         title: "",
+        conversationId,
       },
     });
     console.log(savedResponse);

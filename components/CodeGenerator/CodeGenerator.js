@@ -21,7 +21,7 @@ import { useFetchData } from "@/lib/featcher";
 import { useSession } from "next-auth/react";
 import { useAppContext } from "@/context/Context";
 
-const CodeGenerator = () => {
+const CodeGenerator = ({ conversationId }) => {
   const { isLoading } = useAppContext();
   const { data: session } = useSession();
   const {
@@ -29,7 +29,7 @@ const CodeGenerator = () => {
     isLoading: isCodeLoading,
     isError,
     mutate,
-  } = useFetchData("/api/code-generator/get-code");
+  } = useFetchData(`/api/code-generator/${conversationId}`);
 
   const codeBashRef = useRef(null);
   const codeBashRefTwo = useRef(null);
@@ -62,25 +62,25 @@ const CodeGenerator = () => {
     });
   }, [codeResponse, isLoading]);
 
-  const bashCodeString = `mkdir pricing-range-app
-cd pricing-range-app
-npm init -y
-`;
-  const bashCodeString2 = `npx create-react-app client`;
-  const bashCodeString3 = `cd client 
-npm install axios`;
-  const nodeCodeString = `if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  //   const bashCodeString = `mkdir pricing-range-app
+  // cd pricing-range-app
+  // npm init -y
+  // `;
+  //   const bashCodeString2 = `npx create-react-app client`;
+  //   const bashCodeString3 = `cd client
+  // npm install axios`;
+  //   const nodeCodeString = `if (process.env.NODE_ENV === 'production') {
+  //   app.use(express.static('client/build'));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}`;
+  //   app.get('*', (req, res) => {
+  //     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  //   });
+  // }`;
 
   console.log(codeResponse, "codeResponse");
   return (
     <>
-      {codeResponse?.codes.map((code, index) => (
+      {codeResponse?.conversation[0]?.Code.map((code, index) => (
         <div key={index} className="chat-box-list pt--30" id="chatContainer">
           <div className="chat-box author-speech bg-flashlight">
             <div className="inner">

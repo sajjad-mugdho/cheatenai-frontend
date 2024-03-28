@@ -31,7 +31,7 @@ const CodeGeneratorPage = () => {
                 <div className="rbt-daynamic-page-content">
                   <div className="rbt-dashboard-content">
                     <div className="content-page">
-                      <CodeGenerator />
+                      <CodeGenerator conversationId={conversationId} />
                     </div>
                     <StaticbarDashboardCode conversationId={conversationId} />
                   </div>

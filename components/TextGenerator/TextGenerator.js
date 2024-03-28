@@ -11,12 +11,12 @@ import { useAppContext } from "@/context/Context";
 import { useFetchData } from "@/lib/featcher";
 import Image from "next/image";
 
-const TextGenerator = () => {
+const TextGenerator = ({ conversationId }) => {
   const { isLoading } = useAppContext();
   const { data: session, status } = useSession();
 
   const { data: messages, isLoading: isArticleLoading } = useFetchData(
-    "/api/text-generator/get-article"
+    `/api/text-generator/${conversationId}`
   );
 
   useEffect(() => {
@@ -35,11 +35,9 @@ const TextGenerator = () => {
     });
   }, [messages, isLoading]);
 
-  console.log(messages);
-
   return (
     <>
-      {messages?.articles.map((message, index) => (
+      {messages?.conversation[0]?.Article.map((message, index) => (
         <div
           className="chat-box-list pt--30"
           id="chatContainer"

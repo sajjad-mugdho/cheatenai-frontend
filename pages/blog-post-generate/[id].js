@@ -31,7 +31,7 @@ const TextGeneratorPage = () => {
                 <div className="rbt-daynamic-page-content">
                   <div className="rbt-dashboard-content">
                     <div className="content-page">
-                      <BlogGeneretor />
+                      <BlogGeneretor conversationId={conversationId} />
                     </div>
                     <StaticbarDashboardBlog conversationId={conversationId} />
                   </div>

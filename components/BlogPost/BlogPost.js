@@ -9,14 +9,14 @@ import avatar from "../../public/images/team/avater.png";
 import { useAppContext } from "@/context/Context";
 import { useFetchData } from "@/lib/featcher";
 
-const BlogGeneretor = () => {
+const BlogGeneretor = ({ conversationId }) => {
   const { isLoading } = useAppContext();
   const {
     data: blogPostResponse,
     isLoading: isBlogLoading,
     isError,
     mutate,
-  } = useFetchData("/api/blog-post-generator/get-post");
+  } = useFetchData(`/api/blog-post-generator/${conversationId}`);
 
   useEffect(() => {
     sal();
@@ -32,15 +32,13 @@ const BlogGeneretor = () => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [blogPostResponse?.blogPosts]);
+  }, [blogPostResponse, isBlogLoading]);
 
   const { data: session } = useSession();
 
-  console.log(blogPostResponse?.blogPosts, isBlogLoading);
-
   return (
     <>
-      {blogPostResponse?.blogPosts.map((message, index) => (
+      {blogPostResponse?.conversation[0]?.Blog.map((message, index) => (
         <div
           className="chat-box-list pt--30"
           id="chatContainer"

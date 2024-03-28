@@ -10,16 +10,13 @@ import loading from "../../public/images/icons/loader-one.gif";
 import { useSession } from "next-auth/react";
 import { useFetchData } from "@/lib/featcher";
 
-const EmailGenerator = () => {
+const EmailGenerator = ({ conversationId }) => {
   const { isLoading } = useAppContext();
   const { data: session } = useSession();
 
-  const {
-    data: emailResponse,
-    isLoading: isEmailLoading,
-    isError,
-    mutate,
-  } = useFetchData("/api/email-generator/get-email");
+  const { data: emailResponse, isLoading: isEmailLoading } = useFetchData(
+    `/api/email-generator/${conversationId}`
+  );
 
   useEffect(() => {
     sal();
@@ -39,7 +36,7 @@ const EmailGenerator = () => {
 
   return (
     <>
-      {emailResponse?.emails.map((email, index) => (
+      {emailResponse?.conversation[0]?.Email.map((email, index) => (
         <div className="chat-box-list pt--30" id="chatContainer" key={index}>
           {email.prompt && (
             <div className="chat-box author-speech bg-flashlight">
@@ -85,13 +82,7 @@ const EmailGenerator = () => {
                     {email?.content?.split("\n").map((line, lineIndex) => (
                       <p key={lineIndex}>{line}</p>
                     ))}
-                    {/* <p className="mb--20">{innerData.dear}</p>
-                    <p className="mb--20">{innerData.desc}</p>
-                    <p className="mb--20">{innerData.desc2}</p>
-                    <p className="mb--20">{innerData.desc3}</p>
-                    <p className="mb--20">{innerData.desc4}</p>
-                    <p className="mb--10">{innerData.wish}</p>
-                    <p className="mb--20">{innerData.name}</p> */}
+
                     <Reaction />
                   </div>
                 </div>

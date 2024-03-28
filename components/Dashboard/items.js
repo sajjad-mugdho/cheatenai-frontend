@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-
-import ToolsData from "../../data/header.json";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";

@@ -32,7 +32,7 @@ const EmailGeneratorPage = () => {
                 <div className="rbt-daynamic-page-content">
                   <div className="rbt-dashboard-content">
                     <div className="content-page">
-                      <EmailGenerator />
+                      <EmailGenerator conversationId={conversationId} />
                     </div>
                     <StaticbarDashboardEmail conversationId={conversationId} />
                   </div>
