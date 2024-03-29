@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
   try {
-    const conversation = await db.conversation.findMany({
+    const conversation = await db.ArticleConversation.findMany({
       where: {
         id: conversationId,
         userId: session.user.id,

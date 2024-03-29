@@ -15,6 +15,8 @@ const TextGeneratorPage = () => {
   const { query } = useRouter();
   const conversationId = query.id;
 
+  console.log(query.id);
+
   return (
     <>
       <PageHead title="Text Generator" />

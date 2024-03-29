@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import RightPanelData from "../../data/dashboard.json";
 import SingleRightPanel from "./Props/SingleRightPanel";
@@ -11,6 +11,7 @@ const RightpanelDashboard = () => {
     yesterday: true,
     older: true,
   });
+  const [conversations, setConversation] = useState([]);
 
   const toggleSection = (section) => {
     setSectionStates((prevState) => ({
@@ -18,6 +19,28 @@ const RightpanelDashboard = () => {
       [section]: !prevState[section],
     }));
   };
+
+  useEffect(() => {
+    const fetchConversations = async () => {
+      try {
+        const response = await fetch("/api/conversation/get-all-conv", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setConversation(data.conversations);
+      } catch (error) {
+        console.error("Error fetching Conversations:", error.message);
+      }
+    };
+
+    fetchConversations();
+  }, []);
+
+  console.log(conversations);
+
   return (
     <>
       <div
@@ -37,7 +60,7 @@ const RightpanelDashboard = () => {
             <span>New Chat</span>
           </a>
         </div>
-        {/* <div className="right-side-bottom">
+        <div className="right-side-bottom">
           <div className="small-search search-section mb--20">
             <input type="search" placeholder="Search Here..." />
             <i className="feather-search"></i>
@@ -46,18 +69,18 @@ const RightpanelDashboard = () => {
           <div className="chat-history-section">
             <h6 className="title">Today</h6>
             <ul className="chat-history-list">
-              {RightPanelData &&
-                RightPanelData.rightPanel.map((data, index) => (
+              {conversations &&
+                conversations.map((data, index) => (
                   <SingleRightPanel
                     {...data}
                     key={index}
-                    RightPanelData={data.today}
+                    RightPanelData={data}
                   />
                 ))}
             </ul>
           </div>
 
-          <div
+          {/* <div
             className={`chat-history-section has-show-more ${
               !sectionStates.yesterday ? "active" : ""
             }`}
@@ -81,9 +104,9 @@ const RightpanelDashboard = () => {
             >
               Show More
             </div>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             className={`chat-history-section has-show-more ${
               !sectionStates.previous ? "active" : ""
             }`}
@@ -133,8 +156,8 @@ const RightpanelDashboard = () => {
             >
               Show More
             </div>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
       </div>
     </>
   );

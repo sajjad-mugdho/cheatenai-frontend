@@ -1,6 +1,8 @@
 import React from "react";
 
 const SingleRightPanel = ({ RightPanelData }) => {
+  console.log(RightPanelData);
+
   return (
     <>
       {RightPanelData.map((item, index) => (
@@ -19,7 +21,7 @@ const SingleRightPanel = ({ RightPanelData }) => {
               <i className="feather-more-horizontal"></i>
             </button>
             <ul className="dropdown-menu">
-              {item.list.map((innerItem, innerIndex) => (
+              {item?.Blog.map((innerItem, innerIndex) => (
                 <li key={innerIndex}>
                   <a className="dropdown-item" href="#">
                     <i className={`feather-${innerItem.icon}`}></i>{" "}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import sal from "sal.js";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -11,12 +11,9 @@ import { useFetchData } from "@/lib/featcher";
 
 const BlogGeneretor = ({ conversationId }) => {
   const { isLoading } = useAppContext();
-  const {
-    data: blogPostResponse,
-    isLoading: isBlogLoading,
-    isError,
-    mutate,
-  } = useFetchData(`/api/blog-post-generator/${conversationId}`);
+  const { data: blogPostResponse, isLoading: isBlogLoading } = useFetchData(
+    `/api/blog-post-generator/${conversationId}`
+  );
 
   useEffect(() => {
     sal();

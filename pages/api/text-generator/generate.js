@@ -64,7 +64,7 @@ export default async function handler(req, res) {
         model: "article",
         prompt: messages.map((message) => message.content).join("\n"),
         title: "",
-        conversationId,
+        articleConversationId: conversationId,
       },
     });
 

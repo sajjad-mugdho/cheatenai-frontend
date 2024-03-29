@@ -12,8 +12,9 @@ const Items = () => {
     setLoading(true);
     try {
       e.preventDefault();
-      const response = await axios.post("/api/conversation/create");
+      const response = await axios.post("/api/conversation/text/create");
       const conversationId = response.data.conversation.id;
+      console.log(conversationId);
 
       router
         .push(`/text-generator/${conversationId}`)
@@ -29,7 +30,7 @@ const Items = () => {
     setLoading(true);
     try {
       e.preventDefault();
-      const response = await axios.post("/api/conversation/create");
+      const response = await axios.post("/api/conversation/code/create");
       const conversationId = response.data.conversation.id;
 
       router
@@ -45,7 +46,7 @@ const Items = () => {
     setLoading(true);
     try {
       e.preventDefault();
-      const response = await axios.post("/api/conversation/create");
+      const response = await axios.post("/api/conversation/email/create");
       const conversationId = response.data.conversation.id;
 
       router
@@ -61,7 +62,7 @@ const Items = () => {
     setLoading(true);
     try {
       e.preventDefault();
-      const response = await axios.post("/api/conversation/create");
+      const response = await axios.post("/api/conversation/blog/create");
       const conversationId = response.data.conversation.id;
 
       router
