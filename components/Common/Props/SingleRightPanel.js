@@ -1,11 +1,23 @@
 import React from "react";
 
 const SingleRightPanel = ({ RightPanelData }) => {
-  console.log(RightPanelData);
+  const conversation = [RightPanelData];
+  console.log(conversation, "conversation");
 
   return (
     <>
-      {RightPanelData.map((item, index) => (
+      <>
+        {RightPanelData.map((item, index) => (
+          <li
+            className={`history-box ${item.isActive ? "active" : ""}`}
+            key={index}
+          >
+            {item.title}
+            {/* Your other JSX content */}
+          </li>
+        ))}
+      </>
+      {/* {RightPanelData.map((item, index) => (
         <li
           className={`history-box ${item.isActive ? "active" : ""}`}
           key={index}
@@ -32,7 +44,7 @@ const SingleRightPanel = ({ RightPanelData }) => {
             </ul>
           </div>
         </li>
-      ))}
+      ))} */}
     </>
   );
 };

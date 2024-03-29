@@ -18,6 +18,53 @@ const Context = ({ children }) => {
   const [emailResponse, setemailResponse] = useState([]);
   const [blogPostResponse, setBlogPostResponse] = useState([]);
 
+  // side render
+  const [articleConversations, setArticleConversation] = useState([]);
+  const [blogConversations, setBlogConversation] = useState([]);
+  const [codeConversations, setCodeConversation] = useState([]);
+  const [emailConversations, setEmailConversation] = useState([]);
+
+  const fetchArticleConversations = async () => {
+    try {
+      const response = await axios.get("/api/conversation/text/get");
+      const data = response.data.articleConversations;
+
+      setArticleConversation(data);
+    } catch (error) {
+      console.error("Error fetching Conversations:", error.message);
+    }
+  };
+  const fetchBlogConversations = async () => {
+    try {
+      const response = await axios.get("/api/conversation/blog/get");
+      const data = response.data.blogConversations;
+
+      setBlogConversation(data);
+    } catch (error) {
+      console.error("Error fetching Conversations:", error.message);
+    }
+  };
+  const fetchCodeConversations = async () => {
+    try {
+      const response = await axios.get("/api/conversation/code/get");
+      const data = response.datacodeConversations;
+
+      setCodeConversation(data);
+    } catch (error) {
+      console.error("Error fetching Conversations:", error.message);
+    }
+  };
+  const fetchEmailConversations = async () => {
+    try {
+      const response = await axios.get("/api/conversation/email/get");
+      const data = response.data.emailConversations;
+
+      setEmailConversation(data);
+    } catch (error) {
+      console.error("Error fetching Conversations:", error.message);
+    }
+  };
+
   const checkScreenSize = () => {
     if (window.innerWidth < 1200) {
       setMobile(false);
@@ -154,52 +201,6 @@ const Context = ({ children }) => {
     }
   };
 
-  /**
-   * @param {string} message
-   *
-   */
-
-  // const handleBlogPostGeneretor = async (prompt) => {
-  //   try {
-  //     const userMessage = { role: "user", content: prompt };
-  //     setIsloading(true);
-
-  //     // Generate a unique conversation ID if it's a new conversation
-  //     let conversationId;
-  //     const conversations = getConversations();
-  //     if (conversations.length === 0) {
-  //       conversationId = uuidv4();
-  //     } else {
-  //       // Retrieve conversation ID from the last conversation
-  //       conversationId = conversations[conversations.length - 1].conversationId;
-  //     }
-
-  //     const newMessages = [
-  //       ...conversations,
-  //       { ...userMessage, conversationId },
-  //     ];
-
-  //     console.log(newMessages);
-
-  //     const response = await axios.post("/api/blog-post-generator/generate", {
-  //       messages: newMessages,
-  //     });
-
-  //     const aiMessage = {
-  //       role: "assistant",
-  //       ...response.data,
-  //     };
-
-  //     addMessageToConversation(aiMessage);
-
-  //     setBlogPostResponse((current) => [...current, ...conversations]);
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setIsloading(false);
-  //   }
-  // };
-
   return (
     <CreateContext.Provider
       value={{
@@ -225,6 +226,16 @@ const Context = ({ children }) => {
         handleBlogPostGeneretor,
         blogPostResponse,
         handleGenerateCode,
+
+        //
+        articleConversations,
+        fetchArticleConversations,
+        blogConversations,
+        fetchBlogConversations,
+        codeConversations,
+        fetchCodeConversations,
+        emailConversations,
+        fetchEmailConversations,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PageHead from "../Head";
 import Context from "@/context/Context";
 import HeaderDashboard from "@/components/Header/HeaderDashboard";
@@ -30,7 +30,7 @@ const TextGeneratorPage = () => {
                     <div className="content-page">
                       <BlogGeneretor />
                     </div>
-                    <StaticbarDashboardBlog />
+                    {/* <StaticbarDashboardBlog /> */}
                   </div>
                 </div>
               </div>

@@ -30,7 +30,7 @@ const CodeGeneratorPage = () => {
                     <div className="content-page">
                       <CodeGenerator />
                     </div>
-                    <StaticbarDashboardCode />
+                    {/* <StaticbarDashboardCode /> */}
                   </div>
                 </div>
               </div>

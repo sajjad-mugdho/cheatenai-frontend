@@ -30,7 +30,7 @@ const TextGeneratorPage = () => {
                     <div className="content-page">
                       <TextGenerator />
                     </div>
-                    <StaticbarDashboard />
+                    {/* <StaticbarDashboard /> */}
                   </div>
                 </div>
               </div>

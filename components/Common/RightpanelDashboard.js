@@ -3,15 +3,27 @@ import React, { useEffect, useState } from "react";
 import RightPanelData from "../../data/dashboard.json";
 import SingleRightPanel from "./Props/SingleRightPanel";
 import { useAppContext } from "@/context/Context";
+import axios from "axios";
+import Link from "next/link";
+import { Blog } from "../RightList/Blog";
+import Article from "../RightList/Article";
+import { Code } from "../RightList/Code";
+import Email from "../RightList/Email";
 
 const RightpanelDashboard = () => {
+  const pathname = window.location.pathname;
+
+  const path = pathname.split("/")[1];
+
+  console.log(path);
+
+  console.log();
   const { shouldCollapseRightbar } = useAppContext();
   const [sectionStates, setSectionStates] = useState({
     previous: true,
     yesterday: true,
     older: true,
   });
-  const [conversations, setConversation] = useState([]);
 
   const toggleSection = (section) => {
     setSectionStates((prevState) => ({
@@ -19,27 +31,6 @@ const RightpanelDashboard = () => {
       [section]: !prevState[section],
     }));
   };
-
-  useEffect(() => {
-    const fetchConversations = async () => {
-      try {
-        const response = await fetch("/api/conversation/get-all-conv", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const data = await response.json();
-        setConversation(data.conversations);
-      } catch (error) {
-        console.error("Error fetching Conversations:", error.message);
-      }
-    };
-
-    fetchConversations();
-  }, []);
-
-  console.log(conversations);
 
   return (
     <>
@@ -65,21 +56,44 @@ const RightpanelDashboard = () => {
             <input type="search" placeholder="Search Here..." />
             <i className="feather-search"></i>
           </div>
-
           <div className="chat-history-section">
             <h6 className="title">Today</h6>
             <ul className="chat-history-list">
-              {conversations &&
-                conversations.map((data, index) => (
-                  <SingleRightPanel
-                    {...data}
-                    key={index}
-                    RightPanelData={data}
-                  />
-                ))}
+              {path === "text-generator" && (
+                <>
+                  <Article />
+                </>
+              )}
+              {path === "blog-post-generate" && (
+                <>
+                  <Blog />
+                </>
+              )}
+              {path === "code-generator" && (
+                <>
+                  <Code />
+                </>
+              )}
+              {path === "email-generator" && (
+                <>
+                  <Email />
+                </>
+              )}
             </ul>
           </div>
 
+          {/* test */}
+          {/* <div className="chat-history-section">
+            <h6 className="title">Today</h6>
+            <ul className="chat-history-list">
+              {conversations.map((conversation, index) => (
+                <SingleRightPanel
+                  key={index}
+                  RightPanelData={conversation} // Assuming Blog contains the conversation data
+                />
+              ))}
+            </ul>
+          </div> */}
           {/* <div
             className={`chat-history-section has-show-more ${
               !sectionStates.yesterday ? "active" : ""

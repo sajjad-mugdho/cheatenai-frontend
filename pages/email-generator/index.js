@@ -31,7 +31,7 @@ const EmailGeneratorPage = () => {
                     <div className="content-page">
                       <EmailGenerator />
                     </div>
-                    <StaticbarDashboardEmail />
+                    {/* <StaticbarDashboardEmail /> */}
                   </div>
                 </div>
               </div>
