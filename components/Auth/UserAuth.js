@@ -10,11 +10,18 @@ import boxedLogo from "../../public/images/logo/boxed-logo.png";
 import google from "../../public/images/sign-up/google.png";
 import facebook from "../../public/images/sign-up/facebook.png";
 import PageHead from "@/pages/Head";
+import { useRouter } from "next/router";
 
 const UserAuth = () => {
   const { toggleAuth, setToggleAuth } = useAppContext();
   const [isLoading, setisLoading] = useState(false);
-  const session = useSession();
+  const { data: session } = useSession();
+
+  const router = useRouter();
+
+  if (session?.user) {
+    router.push("/dashboard");
+  }
 
   useEffect(() => {
     sal();

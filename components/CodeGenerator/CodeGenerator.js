@@ -20,6 +20,7 @@ import useClipboard from "@/context/useFetch";
 import { useFetchData } from "@/lib/featcher";
 import { useSession } from "next-auth/react";
 import { useAppContext } from "@/context/Context";
+import Items from "../Dashboard/items";
 
 const CodeGenerator = ({ conversationId }) => {
   const { isLoading } = useAppContext();
@@ -80,102 +81,137 @@ const CodeGenerator = ({ conversationId }) => {
   console.log(codeResponse, "codeResponse");
   return (
     <>
-      {codeResponse?.conversation[0]?.Code.map((code, index) => (
-        <div key={index} className="chat-box-list pt--30" id="chatContainer">
-          <div className="chat-box author-speech bg-flashlight">
-            <div className="inner">
-              <div className="chat-section">
-                <div className="author">
-                  <Image
-                    className="w-100"
-                    src={session?.user.image || user}
-                    width={40}
-                    height={40}
-                    alt="Author"
-                  />
-                </div>
-                <div className="chat-content">
-                  <h6 className="title">{session?.user.name}</h6>
-                  <p>{code.prompt}</p>
+      {codeResponse?.conversation[0] ? (
+        <>
+          {codeResponse?.conversation[0]?.Code.map((code, index) => (
+            <div
+              key={index}
+              className="chat-box-list pt--30"
+              id="chatContainer"
+            >
+              <div className="chat-box author-speech bg-flashlight">
+                <div className="inner">
+                  <div className="chat-section">
+                    <div className="author">
+                      <Image
+                        className="w-100"
+                        src={session?.user.image || user}
+                        width={40}
+                        height={40}
+                        alt="Author"
+                      />
+                    </div>
+                    <div className="chat-content">
+                      <h6 className="title">{session?.user.name}</h6>
+                      <p>{code.prompt}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {code?.role === "assistant" && (
-            <div className="chat-box ai-speech bg-flashlight">
-              <div className="inner top-flashlight leftside light-xl">
-                <div className="chat-section generate-section">
-                  <div className="author">
-                    <i className="feather-check-circle"></i>
-                  </div>
-                  <div className="chat-content">
-                    <h6 className="title color-text-off mb--0">
-                      Scanning the data...
-                    </h6>
+              {code?.role === "assistant" && (
+                <div className="chat-box ai-speech bg-flashlight">
+                  <div className="inner top-flashlight leftside light-xl">
+                    <div className="chat-section generate-section">
+                      <div className="author">
+                        <i className="feather-check-circle"></i>
+                      </div>
+                      <div className="chat-content">
+                        <h6 className="title color-text-off mb--0">
+                          Scanning the data...
+                        </h6>
+                      </div>
+                    </div>
+
+                    <div className="chat-section generate-details-section">
+                      <div className="author">
+                        <Image
+                          className="w-100"
+                          src={avatar}
+                          width={40}
+                          height={40}
+                          alt="ChatenAI"
+                        />
+                      </div>
+                      <div className="chat-content">
+                        <article className="documentation_body shortcode_text mb--20">
+                          <div className="highlight position-relative">
+                            {isCopied ? (
+                              <button className="copy-to-clipboard-button copy-bash">
+                                Copied
+                              </button>
+                            ) : (
+                              <button className="copy-to-clipboard-button copy-bash">
+                                Copy
+                              </button>
+                            )}
+                            <pre
+                              className="language-bash"
+                              tabIndex={0}
+                              ref={codeBashRef}
+                              style={{ backgroundColor: "#070710" }}
+                            >
+                              <code className="language-bash" language="markup">
+                                {code.content}
+                              </code>
+                            </pre>
+                          </div>
+                        </article>
+                        <Reaction />
+                      </div>
+                    </div>
                   </div>
                 </div>
+              )}
 
-                <div className="chat-section generate-details-section">
+              {isLoading && isCodeLoading && (
+                <div className="chat-section generate-section">
                   <div className="author">
                     <Image
-                      className="w-100"
-                      src={avatar}
+                      src={loading}
                       width={40}
                       height={40}
-                      alt="ChatenAI"
+                      alt="Loader Images"
                     />
                   </div>
                   <div className="chat-content">
-                    <article className="documentation_body shortcode_text mb--20">
-                      <div className="highlight position-relative">
-                        {isCopied ? (
-                          <button className="copy-to-clipboard-button copy-bash">
-                            Copied
-                          </button>
-                        ) : (
-                          <button className="copy-to-clipboard-button copy-bash">
-                            Copy
-                          </button>
-                        )}
-                        <pre
-                          className="language-bash"
-                          tabIndex={0}
-                          ref={codeBashRef}
-                          style={{ backgroundColor: "#070710" }}
-                        >
-                          <code className="language-bash" language="markup">
-                            {code.content}
-                          </code>
-                        </pre>
-                      </div>
-                    </article>
-                    <Reaction />
+                    <h6 className="title color-text-off mb--0">
+                      Generating answers for you…
+                    </h6>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
-          )}
-
-          {isLoading && isCodeLoading && (
-            <div className="chat-section generate-section">
-              <div className="author">
-                <Image
-                  src={loading}
-                  width={40}
-                  height={40}
-                  alt="Loader Images"
-                />
-              </div>
-              <div className="chat-content">
-                <h6 className="title color-text-off mb--0">
-                  Generating answers for you…
-                </h6>
-              </div>
+          ))}
+        </>
+      ) : (
+        <>
+          <div className="rainbow-generartor-section rainbow-section-gap">
+            <div
+              className="section-title text-center sal-animate"
+              data-sal="slide-up"
+              data-sal-duration="700"
+              data-sal-delay="100"
+            >
+              <h4 className="subtitle ">
+                <span className="theme-gradient">ChaetenAI</span>
+              </h4>
+              <h2 className="title w-600 mb--20">
+                Unleashing the Power of ChatAI
+              </h2>
+              <p className="description b1">
+                We provide Mastering the Art of ChatAI generate your text <br />
+                Pioneering Conversations with AI.
+              </p>
             </div>
-          )}
-        </div>
-      ))}
+            <div className="genarator-section">
+              <ul className="genarator-card-group">
+                <Items />
+              </ul>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

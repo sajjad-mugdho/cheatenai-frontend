@@ -78,7 +78,7 @@ const Items = () => {
     <>
       <li>
         <Link
-          href={"/text-generator/new"}
+          href={"#"}
           className={`genarator-card `}
           onClick={handleAricleNewChat}
         >
@@ -123,7 +123,7 @@ const Items = () => {
       {/* code generator */}
       <li>
         <Link
-          href={"/text-generator/new"}
+          href={"#"}
           className={`genarator-card `}
           onClick={handleCodeNewChat}
         >

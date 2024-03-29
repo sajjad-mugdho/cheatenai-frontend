@@ -35,10 +35,15 @@ export default async function handler(req, res) {
     const session = await getServerSession(req, res, authOptions);
 
     if (!session) {
-      return res.json({
-        error: "Unauthorized, User is not loged in",
-        status: 403,
-      });
+      throw new Error("User session not found");
+    }
+
+    const user = await db.User.findUnique({
+      where: { id: session.user.id },
+    });
+
+    if (user.credits < 1) {
+      throw new Error("Insufficient credits to generate Email");
     }
 
     const response = await openai.chat.completions.create({
@@ -59,11 +64,23 @@ export default async function handler(req, res) {
         emailConversationId: conversationId,
       },
     });
-    console.log(savedResponse);
+
+    if (savedResponse) {
+      await db.User.update({
+        where: {
+          id: session.user.id,
+        },
+        data: {
+          credits: {
+            decrement: 500,
+          },
+        },
+      });
+    }
 
     return res.json({ content: response.choices[0].message.content });
   } catch (error) {
     console.error("Error generating Email:", error.message);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: error.message });
   }
 }

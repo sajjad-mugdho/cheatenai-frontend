@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export const CreateContext = createContext();
 
@@ -109,10 +110,8 @@ const Context = ({ children }) => {
 
       setIsloading(false);
     } catch (error) {
-      if (error?.response?.status === 403) {
-        setIsloading(false);
-      } else {
-      }
+      toast.error(error.message);
+      console.log(error.message);
     } finally {
       setIsloading(false);
     }
@@ -138,10 +137,9 @@ const Context = ({ children }) => {
 
       setemailResponse((current) => [...current, userMessage, aiMessage]);
     } catch (error) {
-      if (error?.response?.status === 403) {
-        setIsloading(false);
-      } else {
-      }
+      toast.error(error.message);
+      console.log(error.message);
+      setIsloading(false);
     } finally {
       setIsloading(false);
     }
@@ -165,10 +163,8 @@ const Context = ({ children }) => {
 
       setemailResponse((current) => [...current, userMessage, aiMessage]);
     } catch (error) {
-      if (error?.response?.status === 403) {
-        setIsloading(false);
-      } else {
-      }
+      toast.error(error.message);
+      console.log(error.message);
     } finally {
       setIsloading(false);
     }
@@ -192,10 +188,8 @@ const Context = ({ children }) => {
 
       setBlogPostResponse((current) => [...current, userMessage, aiMessage]);
     } catch (error) {
-      if (error?.response?.status === 403) {
-        setIsloading(false);
-      } else {
-      }
+      toast.error(error.message);
+      console.log(error.message);
     } finally {
       setIsloading(false);
     }

@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth";
 
 export default async function handler(req, res) {
   const { conversationId } = req.query;
-  console.log(conversationId, "conversationId");
 
   const session = await getServerSession(req, res, authOptions);
 
@@ -18,8 +17,6 @@ export default async function handler(req, res) {
         Email: true,
       },
     });
-
-    console.log(conversation, "conversation");
 
     if (!conversation) {
       return res.status(404).json({ error: "Conversation not found" });

@@ -36,16 +36,17 @@ export default async function handler(req, res) {
   try {
     const { messages, conversationId } = req.body;
 
-    console.log(conversationId, "conversationId");
-
     const session = await getServerSession(req, res, authOptions);
-
-    console.log(messages);
     if (!session) {
-      return res.json({
-        error: "Unauthorized, User is not loged in",
-        status: 403,
-      });
+      throw new Error("User session not found");
+    }
+
+    const user = await db.User.findUnique({
+      where: { id: session.user.id },
+    });
+
+    if (user.credits < 1) {
+      throw new Error("Insufficient credits to generate Email");
     }
 
     const response = await openai.chat.completions.create({
@@ -68,7 +69,7 @@ export default async function handler(req, res) {
       },
     });
 
-    if (aiResponseContent) {
+    if (savedResponse) {
       await db.User.update({
         where: {
           id: session.user.id,

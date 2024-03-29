@@ -5,24 +5,27 @@ import BannerArea from "./BannerArea";
 
 import Form from "@/pages/Form";
 import Items from "./items";
+import { useSession } from "next-auth/react";
 
 const Dashboard = () => {
   useEffect(() => {
     sal();
   }, []);
+
+  const { data: session } = useSession();
   return (
     <>
       <div className="rbt-main-content mr--0">
         <div className="rbt-daynamic-page-content">
           <div className="rbt-dashboard-content">
-            <div className="banner-area">
-              <BannerArea />
-            </div>
+            <div className="banner-area">{/* <BannerArea /> */}</div>
             <div className="content-page">
               <div className="chat-box-list">
                 <div className="welcome-wrapper">
                   <div className="content-section">
-                    <h4 className="title">👋 Welcome, Rafi</h4>
+                    <h4 className="title">
+                      👋 Welcome, {session?.user?.name}{" "}
+                    </h4>
                   </div>
                   <div className="btn-section">
                     <a
@@ -66,7 +69,7 @@ const Dashboard = () => {
             </div>
 
             <div className="rbt-static-bar collapse-width">
-              {/* <Form /> */}
+              <Form />
             </div>
           </div>
         </div>

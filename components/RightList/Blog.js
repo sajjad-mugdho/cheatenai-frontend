@@ -1,8 +1,10 @@
 import { useAppContext } from "@/context/Context";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 
 export const Blog = () => {
+  const router = useRouter();
   const {
     fetchBlogConversations,
 
@@ -11,13 +13,19 @@ export const Blog = () => {
 
   useEffect(() => {
     fetchBlogConversations();
-  }, [blogConversations]);
+  }, []);
 
   return (
     <>
       {blogConversations.map((conversation, index) => (
         <Link key={index} href={`/text-generator/${conversation.id}`}>
-          <li className="history-box">
+          <li
+            className={`history-box ${
+              router.asPath === `/email-generator/${conversation.id}`
+                ? "active"
+                : ""
+            }`}
+          >
             {conversation?.Blog[0]?.prompt
               ? conversation?.Blog[0]?.prompt
               : "New Chat"}
