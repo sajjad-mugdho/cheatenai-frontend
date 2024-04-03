@@ -1,10 +1,8 @@
 import axios from "axios";
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 export const CreateContext = createContext();
-
 export const useAppContext = () => useContext(CreateContext);
 
 const Context = ({ children }) => {
