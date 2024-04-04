@@ -1,12 +1,40 @@
+import axios from "axios";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const ProfileBody = () => {
-  const [text, setText] = useState(
-    "My name is Fazlay Elahi Rafi and I'm a Front-End Developer of #Rainbow IT in Bangladesh, OR. I have serious passion for UI effects, animations and creating intuitive, dynamic user experiences."
-  );
+  const handleChange = async (e) => {
+    e.preventDefault();
 
-  const handleChange = (event) => {
-    setText(event.target.value);
+    const form = e.target;
+    const firstname = form.firstname.value;
+    const lastname = form.lastname.value;
+    const username = form.username.value;
+    const phone = form.phone.value;
+    const bio = form.bio.value;
+
+    try {
+      const response = await axios.patch("/api/user/update-profile", {
+        firstname,
+        lastname,
+        username,
+        phone,
+        bio,
+      });
+
+      const data = response.data;
+
+      if (data.userUpdate.id) {
+        form.reset();
+        toast.success("Profile updated successfully");
+      }
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred. Please try again.");
+    }
+    console.log({ firstname, lastname, username, phone, bio });
   };
   return (
     <>
@@ -71,54 +99,44 @@ const ProfileBody = () => {
               aria-labelledby="profile-tab"
             >
               <form
-                action="#"
+                onSubmit={handleChange}
                 className="rbt-profile-row rbt-default-form row row--15"
               >
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="firstname">First Name</label>
-                    <input id="firstname" type="text" defaultValue="Fazlay" />
+                    <input name="firstname" id="firstname" type="text" />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="lastname">Last Name</label>
-                    <input id="lastname" type="text" defaultValue="Elahi" />
+                    <input name="lastname" id="lastname" type="text" />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="username">User Name</label>
-                    <input id="username" type="text" defaultValue="Rafi" />
+                    <input name="username" id="username" type="text" />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="phonenumber">Phone Number</label>
-                    <input
-                      id="phonenumber"
-                      type="tel"
-                      defaultValue="+1-202-555-0174"
-                    />
+                    <input name="phone" id="phonenumber" type="tel" />
                   </div>
                 </div>
                 <div className="col-12">
                   <div className="form-group">
                     <label htmlFor="bio">Bio</label>
-                    <textarea
-                      id="bio"
-                      cols="20"
-                      rows="5"
-                      value={text}
-                      onChange={handleChange}
-                    />
+                    <textarea id="bio" name="bio" cols="20" rows="5" />
                   </div>
                 </div>
                 <div className="col-12 mt--20">
                   <div className="form-group mb--0">
-                    <a className="btn-default" href="#">
+                    <button className="btn-default" href="#">
                       Update Info
-                    </a>
+                    </button>
                   </div>
                 </div>
               </form>
