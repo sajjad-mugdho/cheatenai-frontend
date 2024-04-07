@@ -27,6 +27,8 @@ const ProfileBody = () => {
       if (data.userUpdate.id) {
         form.reset();
         toast.success("Profile updated successfully");
+      } else {
+        toast.error("An error occurred. Please try again.");
       }
 
       console.log(data);
@@ -105,31 +107,57 @@ const ProfileBody = () => {
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="firstname">First Name</label>
-                    <input name="firstname" id="firstname" type="text" />
+                    <input
+                      name="firstname"
+                      id="firstname"
+                      placeholder="Firstname"
+                      type="text"
+                    />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="lastname">Last Name</label>
-                    <input name="lastname" id="lastname" type="text" />
+                    <input
+                      name="lastname"
+                      id="lastname"
+                      placeholder="Lastname"
+                      type="text"
+                    />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="username">User Name</label>
-                    <input name="username" id="username" type="text" />
+                    <input
+                      name="username"
+                      id="username"
+                      placeholder="Username"
+                      type="text"
+                    />
                   </div>
                 </div>
                 <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                   <div className="form-group">
                     <label htmlFor="phonenumber">Phone Number</label>
-                    <input name="phone" id="phonenumber" type="tel" />
+                    <input
+                      name="phone"
+                      id="phonenumber"
+                      placeholder="Phone Number"
+                      type="tel"
+                    />
                   </div>
                 </div>
                 <div className="col-12">
                   <div className="form-group">
                     <label htmlFor="bio">Bio</label>
-                    <textarea id="bio" name="bio" cols="20" rows="5" />
+                    <textarea
+                      id="bio"
+                      name="bio"
+                      placeholder="Bio"
+                      cols="20"
+                      rows="5"
+                    />
                   </div>
                 </div>
                 <div className="col-12 mt--20">

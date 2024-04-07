@@ -6,11 +6,16 @@ import BannerArea from "./BannerArea";
 import Form from "@/pages/Form";
 import Items from "./items";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const Dashboard = () => {
   useEffect(() => {
     sal();
   }, []);
+
+  const router = useRouter();
+
+  console.log(router.pathname.split("/")[1]);
 
   const { data: session } = useSession();
   return (

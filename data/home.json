@@ -87,7 +87,7 @@
     },
     {
       "title": "Business",
-      "price": 50,
+      "price": 24.99,
       "text": "",
       "subTitle": "USD Per Month",
       "isActive": true,
@@ -120,7 +120,7 @@
     },
     {
       "title": "Advanced",
-      "price": 100,
+      "price": 49.95,
       "text": "",
       "subTitle": "USD Per Month",
       "isActive": false,

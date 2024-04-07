@@ -17,11 +17,15 @@ const StaticbarDashboard = ({ conversationId }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault(); // Prevent textarea from adding new line
+      e.preventDefault();
+      const form = textareaRef.current.form;
 
-      e.target.form.dispatchEvent(new Event("submit", { cancelable: true }));
+      console.log("TEST", form);
+
+      form.dispatchEvent(new Event("submit"));
     }
   };
+
   return (
     <>
       <div className="rbt-static-bar">
@@ -35,8 +39,8 @@ const StaticbarDashboard = ({ conversationId }) => {
               name="prompt"
               rows="1"
               placeholder="Send a message..."
-              onKeyDown={handleKeyDown} // Add keydown event listener
               ref={textareaRef}
+              onKeyDown={handleKeyDown}
             ></textarea>
             <div className="left-icons">
               <div title="ChatenAI" className="form-icon icon-gpt">

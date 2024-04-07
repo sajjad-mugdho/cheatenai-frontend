@@ -16,7 +16,7 @@ const TextGenerator = ({ conversationId }) => {
   const { isLoading } = useAppContext();
   const { data: session, status } = useSession();
 
-  const { data: messages, isLoading: isArticleLoading } = useFetchData(
+  const { data: messages } = useFetchData(
     `/api/text-generator/${conversationId}`
   );
 
@@ -156,9 +156,7 @@ const TextGenerator = ({ conversationId }) => {
               </p>
             </div>
             <div className="genarator-section">
-              <ul className="genarator-card-group">
-                <Items />
-              </ul>
+              <ul className="genarator-card-group">{/* <Items /> */}</ul>
             </div>
           </div>
         </>

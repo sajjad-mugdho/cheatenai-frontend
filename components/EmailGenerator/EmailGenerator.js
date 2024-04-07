@@ -15,7 +15,7 @@ const EmailGenerator = ({ conversationId }) => {
   const { isLoading } = useAppContext();
   const { data: session } = useSession();
 
-  const { data: emailResponse, isLoading: isEmailLoading } = useFetchData(
+  const { data: emailResponse } = useFetchData(
     `/api/email-generator/${conversationId}`
   );
 
@@ -33,7 +33,7 @@ const EmailGenerator = ({ conversationId }) => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [emailResponse, isEmailLoading]);
+  }, [emailResponse, isLoading]);
 
   return (
     <>
@@ -141,9 +141,7 @@ const EmailGenerator = ({ conversationId }) => {
               </p>
             </div>
             <div className="genarator-section">
-              <ul className="genarator-card-group">
-                <Items />
-              </ul>
+              <ul className="genarator-card-group">{/* <Items /> */}</ul>
             </div>
           </div>
         </>

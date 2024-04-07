@@ -25,12 +25,9 @@ import Items from "../Dashboard/items";
 const CodeGenerator = ({ conversationId }) => {
   const { isLoading } = useAppContext();
   const { data: session } = useSession();
-  const {
-    data: codeResponse,
-    isLoading: isCodeLoading,
-    isError,
-    mutate,
-  } = useFetchData(`/api/code-generator/${conversationId}`);
+  const { data: codeResponse } = useFetchData(
+    `/api/code-generator/${conversationId}`
+  );
 
   const codeBashRef = useRef(null);
   const codeBashRefTwo = useRef(null);
@@ -164,7 +161,7 @@ const CodeGenerator = ({ conversationId }) => {
                 </div>
               )}
 
-              {isLoading && isCodeLoading && (
+              {isLoading && (
                 <div className="chat-section generate-section">
                   <div className="author">
                     <Image
@@ -205,9 +202,7 @@ const CodeGenerator = ({ conversationId }) => {
               </p>
             </div>
             <div className="genarator-section">
-              <ul className="genarator-card-group">
-                <Items />
-              </ul>
+              <ul className="genarator-card-group">{/* <Items /> */}</ul>
             </div>
           </div>
         </>

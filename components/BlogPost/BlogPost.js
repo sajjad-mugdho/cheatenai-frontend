@@ -12,7 +12,7 @@ import Items from "../Dashboard/items";
 
 const BlogGeneretor = ({ conversationId }) => {
   const { isLoading } = useAppContext();
-  const { data: blogPostResponse, isLoading: isBlogLoading } = useFetchData(
+  const { data: blogPostResponse } = useFetchData(
     `/api/blog-post-generator/${conversationId}`
   );
 
@@ -30,7 +30,7 @@ const BlogGeneretor = ({ conversationId }) => {
         bgflashlight.style.setProperty("--y", y + "px");
       };
     });
-  }, [blogPostResponse, isBlogLoading]);
+  }, [blogPostResponse, isLoading]);
 
   const { data: session } = useSession();
 
@@ -146,9 +146,7 @@ const BlogGeneretor = ({ conversationId }) => {
               </p>
             </div>
             <div className="genarator-section">
-              <ul className="genarator-card-group">
-                <Items />
-              </ul>
+              <ul className="genarator-card-group">{/* <Items /> */}</ul>
             </div>
           </div>
         </>

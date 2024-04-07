@@ -13,14 +13,14 @@ const Article = () => {
 
   useEffect(() => {
     fetchArticleConversations();
-  }, []);
+  }, [fetchArticleConversations, articleConversations]);
   return (
     <>
       {articleConversations.map((conversation, index) => (
         <Link key={index} href={`/text-generator/${conversation.id}`}>
           <li
             className={`history-box ${
-              router.asPath === `/email-generator/${conversation.id}`
+              router.asPath === `/text-generator/${conversation.id}`
                 ? "active"
                 : ""
             }`}

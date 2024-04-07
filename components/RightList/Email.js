@@ -5,15 +5,12 @@ import React, { useEffect } from "react";
 
 const Email = () => {
   const router = useRouter();
-  const {
-    fetchEmailConversations,
-
-    emailConversations,
-  } = useAppContext();
+  const { fetchEmailConversations, isloading, emailConversations } =
+    useAppContext();
 
   useEffect(() => {
     fetchEmailConversations();
-  }, []);
+  }, [emailConversations, fetchEmailConversations]);
   return (
     <>
       {emailConversations.map((conversation, index) => (

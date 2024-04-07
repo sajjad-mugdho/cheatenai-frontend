@@ -21,7 +21,10 @@ const LeftpanelDashboard = () => {
     getUser().then((data) => setUser(data));
   }, []);
 
-  const isActive = (href) => router.pathname === href;
+  // const isActive = (href) => router.pathname === href;
+
+  const link = router.pathname;
+  const isActive = (href) => link.split("/")[1] === href.split("/")[1];
 
   const { data: session } = useSession();
 
@@ -119,15 +122,6 @@ const LeftpanelDashboard = () => {
                   </ul>
                   <div className="rbt-sm-separator"></div>
                   <ul className="dashboard-mainmenu rbt-default-sidebar-list">
-                    <li>
-                      <Link
-                        className={isActive("/release-notes") ? "active" : ""}
-                        href="/release-notes"
-                      >
-                        <i className="feather-bell"></i>
-                        <span>Release notes</span>
-                      </Link>
-                    </li>
                     <li>
                       <Link
                         className={isActive("/terms-policy") ? "active" : ""}

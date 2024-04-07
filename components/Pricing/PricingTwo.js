@@ -147,7 +147,7 @@ const PricingTwo = ({
                 </div>
               </div>
             </div>
-            <Compare />
+            {/* <Compare /> */}
           </div>
         </div>
       </div>

@@ -13,14 +13,14 @@ export const Code = () => {
 
   useEffect(() => {
     fetchCodeConversations();
-  }, []);
+  }, [fetchCodeConversations, codeConversations]);
   return (
     <>
       {codeConversations?.map((conversation, index) => (
         <Link key={index} href={`/code-generator/${conversation.id}`}>
           <li
             className={`history-box ${
-              router.asPath === `/email-generator/${conversation.id}`
+              router.asPath === `/code-generator/${conversation.id}`
                 ? "active"
                 : ""
             }`}
