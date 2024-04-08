@@ -1,8 +1,15 @@
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import sal from "sal.js";
 
 const SinglePrice = ({ data, incresePrice, parentClass }) => {
+  const router = useRouter();
+
+  const [plans, setPlans] = useState([]);
+
   useEffect(() => {
     sal();
 
@@ -18,6 +25,30 @@ const SinglePrice = ({ data, incresePrice, parentClass }) => {
       };
     });
   }, []);
+
+  const { data: session } = useSession();
+
+  const handlePlans = async () => {
+    if (!session?.user) {
+      router.push("/AuthPage");
+      return;
+    }
+    await axios.post("/api/plans/create", {});
+
+    await router.push(`/payment-plan/${plans?.plans?.id}`);
+  };
+
+  useEffect(() => {
+    axios
+      .get("/api/plans/get-plans")
+      .then((res) => {
+        setPlans(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <>
       <div className={`${parentClass} ${!incresePrice ? "mt--30" : ""}`}>
@@ -84,12 +115,13 @@ const SinglePrice = ({ data, incresePrice, parentClass }) => {
                 </Link>
               ) : (
                 <Link
+                  onClick={handlePlans}
                   className={`${
                     data.title === "Business"
                       ? "btn-default btn-border"
                       : "btn-default"
                   }`}
-                  href="/payment-plan"
+                  href="#"
                 >
                   Purchase Now
                 </Link>

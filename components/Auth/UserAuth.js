@@ -50,12 +50,12 @@ const UserAuth = () => {
     setisLoading(false);
   };
 
-  const handleGoogleLogin = (e) => {
-    signIn("google");
+  const handleGoogleLogin = async (e) => {
+    await signIn("google");
   };
 
   const handleFacebookLigin = async (e) => {
-    signIn("facebook");
+    await signIn("facebook");
   };
 
   const handleSignup = async (e) => {

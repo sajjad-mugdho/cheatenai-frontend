@@ -11,6 +11,9 @@ export default async function handler(req, res) {
     where: {
       id: session.user.id,
     },
+    include: {
+      Payment: true,
+    },
   });
 
   return res.json({

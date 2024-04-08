@@ -74,7 +74,7 @@ const Dashboard = () => {
             </div>
 
             <div className="rbt-static-bar collapse-width">
-              <Form />
+              {/* <Form /> */}
             </div>
           </div>
         </div>

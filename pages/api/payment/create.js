@@ -45,12 +45,9 @@ export default async function handler(req, res) {
 
       // URL encode the signature
       const signature = encodeURIComponent(sha256Hash);
-      console.log(signature + "signature");
 
       // Construct the full URL with encoded signature
       const fullURL = `${paymentUrl}?CompanyNum=${companyNum}&TransType=${transType}&CardNum=${cardNum}&ExpMonth=${expMonth}&ExpYear=${expYear}&Member=${member}&TypeCredit=${typeCredit}&Amount=${amount}&Currency=${currencyCode}&CVV2=${cvv2}&Email=${email}&PhoneNumber=${mobileNo}&notification_url=${notificationURL}&Order=${order}&Signature=${signature}&Value=1`;
-
-      console.log("fullURL:", fullURL);
 
       // Make the POST request to the payment gateway
       const response = await axios.post(fullURL);
@@ -102,10 +99,19 @@ export default async function handler(req, res) {
           },
         });
 
-        await db.user.update({
+        const user = await db.User.findUnique({
+          where: {
+            id: session.user.id,
+          },
+        });
+
+        const newCreditCount = user.credits + 10000;
+
+        // Update the user's credit count in the database with the new value
+        await db.User.update({
           where: { id: session.user.id },
           data: {
-            credits: 10000,
+            credits: newCreditCount,
           },
         });
       } else {

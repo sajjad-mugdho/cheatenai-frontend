@@ -4,9 +4,12 @@ import React, { useState } from "react";
 import Loading from "../Loading/Loading";
 import toast from "react-hot-toast";
 import Spinner from "../Spinner/Spinner";
+import { useRouter } from "next/router";
 
 const PaymentForm = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,9 +45,13 @@ const PaymentForm = () => {
       console.log("Payment created:", response.data);
       // Handle success response
       if (response.data) {
-        setIsLoading(false);
         form.reset();
+
         toast.success("Payment created successfully");
+
+        setIsLoading(false);
+
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error("Error creating payment:", error);
@@ -56,7 +63,9 @@ const PaymentForm = () => {
   return (
     <>
       {isLoading ? (
-        <Spinner />
+        <div className="d-flex justify-content-center align-items-center">
+          <Spinner />
+        </div>
       ) : (
         <div className="single-settings-box profile-details-box top-flashlight light-xl leftside overflow-hidden">
           <div className="profile-details-tab">
@@ -81,7 +90,7 @@ const PaymentForm = () => {
                         name="cardNum"
                         id="cardNumber"
                         type="tel"
-                        placeholder="0000 0000 0000 0000"
+                        placeholder="5300.."
                       />
                     </div>
                   </div>
@@ -131,11 +140,13 @@ const PaymentForm = () => {
                   </div>
                   <div className="col-lg-4 col-md-4 col-sm-4 col-12">
                     <div className="form-group">
-                      <label htmlFor="amount">Amount</label>
+                      <label htmlFor="amount">$USD</label>
                       <input
                         name="amount"
                         id="amount"
                         type="number"
+                        defaultValue={24.99}
+                        disabled
                         placeholder="$USD"
                       />
                     </div>
@@ -168,10 +179,10 @@ const PaymentForm = () => {
                       <label htmlFor="address">Billing Address</label>
                       <textarea
                         name="address"
+                        placeholder="Enter your address"
                         id="address"
                         cols="20"
                         rows="5"
-                        placeholder=""
                       />
                     </div>
                   </div>

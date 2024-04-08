@@ -4,9 +4,14 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import avatar from "../../public/images/team/avater-g.png";
 
 import UserMenuItems from "./HeaderProps/UserMenuItems";
+import { sign } from "crypto";
 
 const UserMenu = () => {
   const { data: session } = useSession();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
   return (
     <>
       <div className="inner">
@@ -48,7 +53,7 @@ const UserMenu = () => {
         <hr className="mt--10 mb--10" />
         <ul className="user-list-wrapper">
           <li>
-            <Link onClick={() => signOut()} href="/AuthPage">
+            <Link onClick={handleSignOut} href="#">
               <i className="feather-log-out"></i>
               <span>Logout</span>
             </Link>

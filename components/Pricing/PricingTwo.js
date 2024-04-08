@@ -63,7 +63,7 @@ const PricingTwo = ({
                     ""
                   )}
 
-                  <nav className="chatenai-tab">
+                  {/* <nav className="chatenai-tab">
                     <div
                       className="tab-btn-grp nav nav-tabs mb-3 text-center justify-content-center"
                       id="nav-tab"
@@ -97,7 +97,7 @@ const PricingTwo = ({
                         </span>
                       </button>
                     </div>
-                  </nav>
+                  </nav> */}
                 </div>
               </div>
 

@@ -153,7 +153,9 @@ const LeftpanelDashboard = () => {
                   <h6>{session?.user.name || "User"}</h6>
                   <p>{session?.user.email || "user@gmail.com"}</p>
                 </div>
-                <div className="author-badge">Free</div>
+                <div className="author-badge">
+                  {user?.user.credits ? <>Pro</> : <>Free</>}
+                </div>
               </Link>
               <div className="btn-part">
                 {user?.user.credits ? (
